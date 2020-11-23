@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { IBase } from 'src/app/shared/interfaces/base';
+import { DataStorageService } from '../../shared/data-storage.service';
+import { IProfile } from '../../shared/interfaces/profile';
+import { IUser } from '../../shared/interfaces/user';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-profile',
@@ -9,13 +12,17 @@ import { IBase } from 'src/app/shared/interfaces/base';
 })
 export class ProfileComponent implements OnInit {
 
-  user: IBase;
+  user: IUser;
+  profile: IProfile;
+  faLocation = faMapMarkerAlt;
+
   constructor(private dataStorageService: DataStorageService) {
 
-   }
+  }
 
   ngOnInit(): void {
     this.user = this.dataStorageService.getUser();
+    this.profile = this.dataStorageService.getProfile();
   }
 
 }

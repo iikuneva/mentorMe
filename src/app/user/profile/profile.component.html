@@ -1,44 +1,52 @@
-<div>
-    <section>
-<div>
-    <!-- <img class="" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Chris_Hemsworth_by_Gage_Skidmore_2_%28cropped%29.jpg" alt=""> -->
-</div>
-<div>RATING</div>
-<div>
-    <button type="button" class="btn btn-primary">Mentor Me</button>
-</div>
-<div>
-    <p>Name: {{user.name}}</p>
-    <p>Position: Frontend developer</p>
-    <p>Slogan: Just do it!</p>
-</div>
-    </section>
-    <section>
-        <p>Email: christopher@abv.bg</p>
-        <p>City: London</p>
-        <p>Links: https://github.com/chris</p>
-    </section>
-    <section>
-        <p>Education: </p>
-        <p>Work experience: </p>
-        <p>Projects: </p>
-        <p>Education: </p>
-    </section>
-    <section>
-        <p>About me: </p>
-        <p>Technical skills: </p>
-        <p>Soft skills: </p>
-        <p>Interests: </p>
-        <p>Volunteer: </p>
-    </section>
-    <section>
-        <div class="form-group">
-            <label for="exampleSelect1">Example select</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Currently Open for mentorship</option>
-              <option>Currently Closed for mentorship</option>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <img class="img-responsive" style="max-width: 150px;" src={{profile.image}} alt="Profile image">
+        </div>
+        <div class="col-sm-4">
+            <h2>{{profile.name}}</h2>
+            <h5>{{profile.position}}</h5>
+            <p>{{profile.slogan}}</p>
+        </div>
+        <div class="col-sm-4">
+            <div>RATING</div>
+            <button type="button" class="btn btn-primary">Mentor Me</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <p>Email: {{profile.email}}</p>
+        <div>
+        <fa-icon [icon]="faLocation"></fa-icon>
+    </div>
+        <p>City: {{profile.city}}</p>
+        <p>Links: {{profile.links}}</p>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <p>Education: {{profile.education}}</p>
+            <p>Work experience: {{profile.experience}}</p>
+            <p>Projects: {{profile.projects}}</p>
+            <p>Languages: {{profile.languages}}</p>
+        </div>
+        <div class="col-sm-6">
+            <p>About me: {{profile.about}}</p>
+            <p>Technical skills: {{profile.techSkills}}</p>
+            <p>Soft skills: {{profile.softSkills}}</p>
+            <p>Interests: {{profile.interests}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="form-group column">
+            <select class="form-control" id="status">
+                <option>Currently Open for mentorship</option>
+                <option>Currently Closed for mentorship</option>
             </select>
-          </div>
-        <button type="button" class="btn btn-outline-primary">Primary</button>
-    </section>
+        </div>
+        <div class="column">
+            <button type="button" class="btn btn-outline-primary">Edit profile</button>
+        </div>
+    </div>
 </div>
