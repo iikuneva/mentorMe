@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  registerURL: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
+  loginURL: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
+  apiKey: "AIzaSyAztfY0Y3wf3rNW_uoKHiHpmZo6L5mMW8g",
+  dbUrl: "https://mentorme-74adb.firebaseio.com/"
 };
 
 /*

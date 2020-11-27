@@ -1,1 +1,53 @@
-<p>register works!</p>
+<div class="row container justify-content-center mt-5">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <form #f="ngForm" (ngSubmit)="registerHandler()">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input #emailInput="ngModel" name="email" type="text" id="email" class="form-control" ngModel email
+                    required />
+                <small *ngIf="emailInput.touched && emailInput.errors?.required" class="text-sm text-danger">
+                    Email is required!
+                </small>
+                <small *ngIf="emailInput.touched && emailInput.errors?.email" class="text-sm text-danger">
+                    Email is invalid!
+                </small>
+            </div>
+            <div ngModelGroup="pass">
+                <div class="form-group">
+                    <div>
+                        <label for="password">Password</label>
+                        <input #passwordInput="ngModel" name="password" type="password" id="password"
+                            class="form-control" ngModel required />
+                        <small *ngIf="passwordInput.touched && passwordInput.errors?.required"
+                            class="text-sm text-danger">
+                            Password is required!
+                        </small>
+                    </div>
+                    <div>
+                        <label for="repeatPassword">Repeat Password</label>
+                        <input #repeatPasswordInput="ngModel" name="repeatPassword" type="password" id="repeatPassword"
+                            class="form-control" ngModel required />
+                        <small *ngIf="repeatPasswordInput.touched && repeatPasswordInput.errors?.required"
+                            class="text-sm text-danger">
+                            Repeat Password is required!
+                        </small>
+                        <small *ngIf="repeatPasswordInput.touched && !passMatch"
+                            class="text-sm text-danger">
+                            Passwords don't match!
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button [disabled]="!f.valid && !passMatch" class="btn btn-primary" type="submit">Register
+                </button>
+            </div>
+        </form>
+        <div>
+            <p class="text-center">
+                Have an account?
+                <a routerLink="/login">Log In</a>
+            </p>
+        </div>
+    </div>
+</div>

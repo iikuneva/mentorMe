@@ -1,7 +1,12 @@
 <div class="container">
-    <div class="row">
+    <app-test-comp [title]="profile.email" (message)="getMessage($event)">
+        <h1>Test</h1>
+    </app-test-comp>
+    <p>{{testmessage}}</p>
+    <div class="row mt-5">
         <div class="col-sm-4">
-            <img class="img-responsive" style="max-width: 150px;" src={{profile.image}} alt="Profile image">
+            <img class="img-responsive" style="max-width: 150px;" [src]="profile.image" alt="Profile image">
+            <h6>RATING</h6>
         </div>
         <div class="col-sm-4">
             <h2>{{profile.name}}</h2>
@@ -9,44 +14,66 @@
             <p>{{profile.slogan}}</p>
         </div>
         <div class="col-sm-4">
-            <div>RATING</div>
-            <button type="button" class="btn btn-primary">Mentor Me</button>
+            <div *ngIf="profile.isOpen">
+                <h6 class="text-success">Currently Open for mentorship</h6>
+                <button type="button" class="btn btn-primary">Mentor Me</button>
+            </div>
+            <div *ngIf="!profile.isOpen">
+                <h6 class="text-danger">Currently Closed for mentorship</h6>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex flex-row justify-content-center">
+        <div class="col-sm-4 d-flex flex-row justify-content-center">
+            <fa-icon [icon]="faEmail"></fa-icon>
+            <p>{{profile.email}}</p>
+        </div>
+
+        <div class="col-sm-4 d-flex flex-row justify-content-center">
+            <fa-icon [icon]="faLocation"></fa-icon>
+            <p>{{profile.city}}</p>
+        </div>
+
+        <div class="col-sm-4 d-flex flex-row justify-content-center">
+            <fa-icon [icon]="faLink"></fa-icon>
+            <p>{{profile.links}}</p>
         </div>
     </div>
     <hr>
     <div class="row">
-        <p>Email: {{profile.email}}</p>
+        <div class="col-sm-6">
+            <h6>Education</h6>
+            <p>{{profile.education}}</p>
+            <h6>Work experience</h6>
+            <p>{{profile.experience}}</p>
+            <h6>Projects</h6>
+            <p>{{profile.projects}}</p>
+            <h6>Languages</h6>
+            <p>{{profile.languages}}</p>
+        </div>
+        <div class="col-sm-6">
+            <h6>About me</h6>
+            <p>{{profile.about}}</p>
+            <h6>Technical skills</h6>
+            <p>{{profile.techSkills}}</p>
+            <h6>Soft skills</h6>
+            <p>{{profile.softSkills}}</p>
+            <h6>Interests</h6>
+            <p>{{profile.interests}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <!-- <div>
+            <button type="button" class="btn btn-outline-primary" routerLink="edit">Edit profile</button>
+        </div>
         <div>
-        <fa-icon [icon]="faLocation"></fa-icon>
-    </div>
-        <p>City: {{profile.city}}</p>
-        <p>Links: {{profile.links}}</p>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-6">
-            <p>Education: {{profile.education}}</p>
-            <p>Work experience: {{profile.experience}}</p>
-            <p>Projects: {{profile.projects}}</p>
-            <p>Languages: {{profile.languages}}</p>
-        </div>
-        <div class="col-sm-6">
-            <p>About me: {{profile.about}}</p>
-            <p>Technical skills: {{profile.techSkills}}</p>
-            <p>Soft skills: {{profile.softSkills}}</p>
-            <p>Interests: {{profile.interests}}</p>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="form-group column">
-            <select class="form-control" id="status">
-                <option>Currently Open for mentorship</option>
-                <option>Currently Closed for mentorship</option>
-            </select>
-        </div>
-        <div class="column">
-            <button type="button" class="btn btn-outline-primary">Edit profile</button>
+            <button type="button" class="btn btn-outline-primary" routerLink="create">Create profile</button>
+        </div> -->
+        <div *ngIf="isOwner">
+            <button type="button" class="btn btn-light btn-sm" (click)="createProfile()">Create profile</button>
+            <button type="button" class="btn btn-light btn-sm" (click)="editProfile()">Edit profile</button>
         </div>
     </div>
 </div>
