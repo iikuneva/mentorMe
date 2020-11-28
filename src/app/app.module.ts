@@ -9,11 +9,13 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CoreModule,
     SharedModule,
     UserModule,
-    FontAwesomeModule,
-    // ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [

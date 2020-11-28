@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataStorageService } from '../shared/data-storage.service';
+import IProfile from '../user/profile.model';
+import { ProfileService } from '../user/profile/profile.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  profiles: IProfile[] = [];
+  
+  constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
+    this.profiles = this.dataStorageService.getAllProfiles();
   }
 
 }

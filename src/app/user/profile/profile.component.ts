@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import { DataStorageService } from '../../shared/data-storage.service';
-import { IProfile } from '../../shared/interfaces/profile';
-import { IUser } from '../../shared/interfaces/user';
+import IProfile from '../profile.model';
+import {ILoggedUser} from '../auth/auth.model';
 import { faMapMarkerAlt, faEnvelope, faLink } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -13,41 +13,28 @@ import { faMapMarkerAlt, faEnvelope, faLink } from '@fortawesome/free-solid-svg-
 })
 export class ProfileComponent implements OnInit {
 
-  user: IUser;
+  // user: ILoggedUser;
   profile: IProfile;
   faLocation = faMapMarkerAlt;
   faEmail = faEnvelope;
   faLink = faLink;
   isOwner = true;
 
-  testmessage: string;
-
-  constructor(private dataStorageService: DataStorageService,  private route: ActivatedRoute,
-    private router: Router) {
-
+  constructor(private dataStorageService: DataStorageService,  private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.user = this.dataStorageService.getUser();
-    this.profile = this.dataStorageService.getProfile();
-  }
-
-  getMessage(message: string) {
-    this.testmessage = message
+    this.route.params.subscribe((params: Params) => {
+      this.profile = this.dataStorageService.getProfileById(params.id);
+    });
   }
 
   createProfile(): void {
-    this.router.navigate([
-      // this.profileId,
-      '/profile',
-      'create']);
+    this.router.navigate(['/profile', 'create']);
   }
 
   editProfile(): void {
-    this.router.navigate([
-      '/profile',
-      // this.profileId,
-      'edit']);
+    this.router.navigate(['/profile', this.profile.id, 'edit']);
   }
 
 }

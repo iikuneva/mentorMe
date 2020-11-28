@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../auth-service.service';
 
@@ -15,11 +16,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginHandler(formData) {
-  
     const userForm = {
       email: formData.email,
       password: formData.password
     };
     this.authService.loginUser(userForm);
+    
+
   }
+
+
 }

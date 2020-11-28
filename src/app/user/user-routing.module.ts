@@ -7,11 +7,11 @@ import { CreateEditProfileComponent } from './create-edit-profile/create-edit-pr
 
 const routes: Routes = [
   {
-    path: 'profile',
+    path: 'profile/:id',
     component: ProfileComponent
   },
   { path: 'profile/create', component: CreateEditProfileComponent },
-  { path: 'profile/edit', component: CreateEditProfileComponent },
+  { path: 'profile/:id/edit', component: CreateEditProfileComponent },
   {
     path: 'login',
     component: LoginComponent

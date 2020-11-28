@@ -1,47 +1,66 @@
 import { Injectable } from '@angular/core';
-import { IProfile } from './interfaces/profile';
-import { IUser } from './interfaces/user';
+import {map, tap} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import IProfile from '../user/profile.model';
+// import { IUser } from './interfaces/user';
+import { ILoggedUser } from '../user/auth/auth.model';
+import { AuthService } from '../user/auth/auth-service.service';
+import { HttpClient } from '@angular/common/http';
+import {environment} from '../../environments/environment'
+
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataStorageService {
-  private user: IUser = {
-    id: '1',
-    email: 'nikolatesla1@abv.bg',
-    password: '123456',
+
+  user: ILoggedUser = null;
+  loggedUserProfileId = new Subject<string>();
+  userProfile: IProfile = null;
+  profiles: IProfile[] = [];
+
+  constructor(private http: HttpClient ) { }
+
+  fetchAllProfiles(): Observable<IProfile[]> {
+    return this.http.get(environment.dbUrl + 'profile.json').pipe(
+        map(entries => {
+            const data = [];
+            Object.keys(entries).forEach(k => {
+                data.push({
+                    ...entries[k],
+                    id: k
+                })
+            });
+            return data;
+        }), 
+        tap(data => this.profiles=data)
+    )
+}
+
+  setUser(user: ILoggedUser) {
+    this.user = user;
   }
 
-  private profile: IProfile = {
-   ...this.user,
-    name: 'Nikola Tesla',
-    role: 'mentor',
-    city: 'Sofia',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyuOxK3QU-kferuV90iFouS85JjjeYvGE5Fw&usqp=CAU',
-    isOpen: true,
-    links: 'github.com/iikuneva, fb/jdfdjfhdk',
-    position: 'JavaScript developer',
-    slogan: 'Be the first',
-    education: 'Informatics, Sofia university',
-    experience: 'Musala Soft',
-    techSkills: 'JavaScript, Java, Angular',
-    softSkills: 'talkative, team worker',
-    projects: 'Google, LinkedIn',
-    languages: 'spanish, english',
-    interests: 'maths, skiing',
-    about: 'I have a great teaching skills and I am experianced with Javascript. I want to share my knowledges with motivated people ',
-    rating: 5,
-    mentorship: ['Maria Kuri', 'Albert Ainshtain']
-  }
-
-  constructor() { }
-
-  getUser(): IUser {
+  getUser(): ILoggedUser {
     return this.user;
   }
 
-  getProfile(): IProfile {
-    return this.profile;
+  setLoggedUserProfile(email: string): void {
+    const user = this.profiles.find(p => p.userEmail === email);
+    this.loggedUserProfileId.next(user.id);
+  }
+
+  getLoggedUserProfileId() {
+    return this.loggedUserProfileId;
+  }
+
+  getAllProfiles(): IProfile[] {
+    return this.profiles;
+  }
+
+  getProfileById(id: string): IProfile {
+    return this.profiles.find(p => p.id === id);
   }
 
 }

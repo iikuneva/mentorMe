@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { FormArray } from '@angular/forms';
+import {CreateEditProfileService} from './create-edit-profile.service';
 
 @Component({
   selector: 'app-create-edit-profile',
@@ -12,10 +13,13 @@ import { FormArray } from '@angular/forms';
 export class CreateEditProfileComponent implements OnInit {
   profileForm: FormGroup;
   selectedOption: string;
-  isRegisterMode: false;
+  isCreateMode: false;
   profileId: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private createEditProfileService: CreateEditProfileService, private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit(): void {
+    // this.route.queryParams.subscribe(params => this.isRegisterMode = params.register);
     this.profileForm = this.fb.group({
       main: this.fb.group({
         name: ['', Validators.required],
@@ -47,10 +51,6 @@ export class CreateEditProfileComponent implements OnInit {
         this.fb.control('')
       ]),
     });
-  }
-
-  ngOnInit(): void {
-    // this.route.queryParams.subscribe(params => this.isRegisterMode = params.register);
   }
 
   get education() {
@@ -89,6 +89,12 @@ export class CreateEditProfileComponent implements OnInit {
     (<FormArray>this.profileForm.get('project')).removeAt(index);
   }
 
-  onSubmit(): void { }
+  onSubmit(): void {
+    // console.log(this.profileForm)
+    this.createEditProfileService.createProfile(this.profileForm.value);
+    this.router.navigate(['/profile']);
+   }
+
   cancel(): void { }
+
 }
