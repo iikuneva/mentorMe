@@ -1,5 +1,44 @@
 <div class="container">
-    <div *ngFor="let p of profiles">
-        <p>{{p.id}}</p>
+    <div class="jumbotron">
+
+        <h2 class="display-3">Mentor ME!</h2>
+        <h5>Key Benefits for <strong>Mentor</strong></h5>
+        <ul>
+            <li>Exposure to fresh perspectives, ideas and approaches</li>
+            <li>Development of personal leadership and coaching styles</li>
+            <li>Recognition as a subject matter expert and leader.</li>
+            <li>Extension of their professional development record.</li>
+            <li>Opportunity to reflect on their own goals and practices.</li>
+        </ul>
+        <h5>Key Benefits for <strong>Mentee</strong></h5>
+        <ul>
+           <li>Exposure to new ideas and ways of thinking</li>
+           <li>Advice on developing strengths and overcoming weaknesses</li>
+           <li>Guidance on their professional development and advancement</li>
+           <li>Increased visibility and recognition within the company</li>
+           <li>The opportunity to develop new skills and knowledge</li>
+        </ul>
+
+        <hr class="my-4">
+        <p>If you want to be a mentor or  mentee - register, create a profile and enjoy the jurney!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" [routerLink]="['/register']" role="button">Register</a>
+        </p>
     </div>
+    <div class="card-deck d-flex flex-row justify-content-center mt-5">
+        <div class="col-xs-12 col-md-4 mb-4" *ngFor="let profile of profiles">
+            <div class="card h-100 shadow">
+                <img class="card-img-top" [src]="profile.main.image" alt="Card image cap">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{profile.main.name}}</h5>
+                    <h6 class="card-subtitle text-muted">{{profile.main.position}}</h6>
+                </div>
+                <div class="d-flex justify-content-center mb-3">
+                    <a [routerLink]="['/profile', profile.id]" class="btn btn-dark w-50">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { FormArray } from '@angular/forms';
-import {CreateEditProfileService} from './create-edit-profile.service';
+import { CreateEditProfileService } from './create-edit-profile.service';
+import { mainModule } from 'process';
+import { DataStorageService } from '../../shared/data-storage.service';
+import IProfile from '../profile.model'
 
 @Component({
   selector: 'app-create-edit-profile',
@@ -12,35 +15,46 @@ import {CreateEditProfileService} from './create-edit-profile.service';
 })
 export class CreateEditProfileComponent implements OnInit {
   profileForm: FormGroup;
-  selectedOption: string;
-  isCreateMode: false;
+  selectedOptionRole: string;
+  selectedOptionStatus: string;
+  isEditMode = false;
   profileId: string;
+  profiles: IProfile[];
+  profile: IProfile;
 
-  constructor(private fb: FormBuilder, private createEditProfileService: CreateEditProfileService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private fb: FormBuilder, private createEditProfileService: CreateEditProfileService, private route: ActivatedRoute, private router: Router, private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
-    // this.route.queryParams.subscribe(params => this.isRegisterMode = params.register);
+    this.route.queryParams.subscribe(params => this.isEditMode = !!params.edit);
+
+    if (this.isEditMode) {
+      this.profileId = this.route.snapshot.params.id;
+      this.profile = this.dataStorageService.getUserProfile();
+      this.selectedOptionRole = this.profile.main.role;
+      this.selectedOptionStatus = this.profile.main.status;
+    }
     this.profileForm = this.fb.group({
       main: this.fb.group({
-        name: ['', Validators.required],
-        image: ['', Validators.required],
-        role: ['', Validators.required],
-        position: ['', Validators.required],
-        slogan: ['', Validators.required],
-        status: ['', Validators.required]
+        name: [this.isEditMode? this.profile.main.name : null, Validators.required],
+        image: [this.isEditMode? this.profile.main.image : null, Validators.required],
+        role: [this.isEditMode? this.profile.main.role : null, Validators.required],
+        position: [this.isEditMode? this.profile.main.position : null, Validators.required],
+        slogan: [this.isEditMode? this.profile.main.slogan : null, Validators.required],
+        status: [this.isEditMode? this.profile.main.status : null, Validators.required]
       }),
       contact: this.fb.group({
-        email: ['', Validators.required],
-        city: ['', Validators.required],
-        links: ['', Validators.required]
+        email: [this.isEditMode? this.profile.contact.email : null, Validators.required],
+        city: [this.isEditMode? this.profile.contact.city : null, Validators.required],
+        links: [this.isEditMode? this.profile.contact.links : null, Validators.required]
       }),
       description: this.fb.group({
-        about: ['', Validators.required],
-        techSkills: ['', Validators.required],
-        softSkills: ['', Validators.required],
-        languages: ['', Validators.required],
-        interests: ['', Validators.required],
+        about: [this.isEditMode? this.profile.description.about : null, Validators.required],
+        techSkills: [this.isEditMode? this.profile.description.techSkills : null, Validators.required],
+        softSkills: [this.isEditMode? this.profile.description.softSkills : null, Validators.required],
+        languages: [this.isEditMode? this.profile.description.languages : null, Validators.required],
+        interests: [this.isEditMode? this.profile.description.interests : null, Validators.required],
       }),
+      userEmail: this.dataStorageService.getUser().email,
       education: this.fb.array([
         this.fb.control('')
       ]),
@@ -51,7 +65,46 @@ export class CreateEditProfileComponent implements OnInit {
         this.fb.control('')
       ]),
     });
+
+    // if (this.isEditMode) {
+      // this.profiles = this.dataStorageService.getAllProfiles();
+      // this.route.params.subscribe((params: Params) => {
+      //   this.profile = this.dataStorageService.getProfileById(params.id);
+      // this.profileSubscription = this.profile.subscribe((profile) => {
+      // this.profile = this.dataStorageService.getProfileById(this.profileId);
+
+      // this.profileId = this.route.snapshot.params.id;
+      // this.profile = this.dataStorageService.getProfileById(this.profileId);
+      // this.profileForm.setValue = ({
+      //   main: {
+      //     name: this.profile.main.name,
+      //     image: this.profile.main.image,
+      //     role: this.profile.main.role,
+      //     position: this.profile.main.position,
+      //     slogan: this.profile.main.slogan,
+      //     status: this.profile.main.status
+      //   },
+      //   'contact': {
+      //     'email': this.profile.contact.email,
+      //     'city': this.profile.contact.city,
+      //     'links': this.profile.contact.links,
+      //   },
+      //   'description': {
+      //     'about': this.profile.description.about,
+      //     'techSkills': this.profile.description.techSkills,
+      //     'softSkills': this.profile.description.softSkills,
+      //     'languages': this.profile.description.languages,
+      //     'interests': this.profile.description.interests,
+      //   },
+      //   'education': this.profile.education,
+      //   'experience': this.profile.experience,
+      //   'projects': this.profile.projects,
+      //   // this.profileId = profile.id;
+      // })
+    // }
   }
+
+
 
   get education() {
     return this.profileForm.get('education') as FormArray;
@@ -90,10 +143,14 @@ export class CreateEditProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // console.log(this.profileForm)
-    this.createEditProfileService.createProfile(this.profileForm.value);
-    this.router.navigate(['/profile']);
-   }
+    const profileData: IProfile = this.profileForm.value;
+    if (this.isEditMode) {
+      this.createEditProfileService.editProfile(this.profileId, profileData);
+    } else {
+      this.createEditProfileService.createProfile(profileData);
+    }
+    
+  }
 
   cancel(): void { }
 

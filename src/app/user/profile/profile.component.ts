@@ -19,22 +19,27 @@ export class ProfileComponent implements OnInit {
   faEmail = faEnvelope;
   faLink = faLink;
   isOwner = true;
+  isCreatedProfile = false;
+  isEditMode = true;
+  // userProfileId: string = null;
 
   constructor(private dataStorageService: DataStorageService,  private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.profile = this.dataStorageService.getProfileById(params.id);
+    this.profile =this.dataStorageService.getUserProfile();
+    this.isCreatedProfile = true;
+      // this.dataStorageService.getLoggedUserProfileId().subscribe(id => this.userProfileId = id);
     });
   }
 
-  createProfile(): void {
-    this.router.navigate(['/profile', 'create']);
-  }
+  // createProfile(): void {
+  //   this.router.navigate(['/profile', 'create']);
+  // }
 
   editProfile(): void {
-    this.router.navigate(['/profile', this.profile.id, 'edit']);
+    this.router.navigate(['/profile', this.profile.id, 'edit'], {queryParams:{edit: true}});
   }
 
 }

@@ -50,6 +50,7 @@ export class AuthService {
   logout() {
     // sessionStorage.removeItem('email');
     this.dataStorageService.setUser(null);
+    this.dataStorageService.setLoggedUserProfile(null);
     this.router.navigate(["/home"])
   }
 

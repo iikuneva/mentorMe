@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import {map, tap} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import IProfile from '../user/profile.model';
-// import { IUser } from './interfaces/user';
 import { ILoggedUser } from '../user/auth/auth.model';
-import { AuthService } from '../user/auth/auth-service.service';
 import { HttpClient } from '@angular/common/http';
-import {environment} from '../../environments/environment'
+import { environment } from '../../environments/environment'
 
 
 @Injectable({
@@ -14,29 +12,28 @@ import {environment} from '../../environments/environment'
 })
 
 export class DataStorageService {
-
   user: ILoggedUser = null;
   loggedUserProfileId = new Subject<string>();
   userProfile: IProfile = null;
   profiles: IProfile[] = [];
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient) { }
 
   fetchAllProfiles(): Observable<IProfile[]> {
     return this.http.get(environment.dbUrl + 'profile.json').pipe(
-        map(entries => {
-            const data = [];
-            Object.keys(entries).forEach(k => {
-                data.push({
-                    ...entries[k],
-                    id: k
-                })
-            });
-            return data;
-        }), 
-        tap(data => this.profiles=data)
+      map(entries => {
+        const data = [];
+        Object.keys(entries).forEach(k => {
+          data.push({
+            ...entries[k],
+            id: k
+          })
+        });
+        return data;
+      }),
+      tap(data => this.profiles = data)
     )
-}
+  }
 
   setUser(user: ILoggedUser) {
     this.user = user;
@@ -47,8 +44,15 @@ export class DataStorageService {
   }
 
   setLoggedUserProfile(email: string): void {
-    const user = this.profiles.find(p => p.userEmail === email);
-    this.loggedUserProfileId.next(user.id);
+    if (email) {
+      this.http.get(environment.dbUrl + '/profile.json?orderBy="userEmail"&equalTo="' + email + '"').subscribe(
+        data => {
+          this.loggedUserProfileId.next(Object.keys(data)[0]);
+        }
+      )
+    } else {
+      this.loggedUserProfileId.next(null);
+    }
   }
 
   getLoggedUserProfileId() {
@@ -59,8 +63,19 @@ export class DataStorageService {
     return this.profiles;
   }
 
-  getProfileById(id: string): IProfile {
-    return this.profiles.find(p => p.id === id);
+  fetchProfileById(id: string): Observable <IProfile> {
+    return this.http.get<IProfile>(environment.dbUrl+ 'profile/' + id + '.json').pipe(
+      map(data =>{
+      return {
+      ...data,
+      id}
+    }),
+    tap(profile => this.userProfile = profile));
+    // return this.profiles.find(p => p.id === id);
+  }
+
+  getUserProfile(): IProfile {
+    return this.userProfile;
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import IProfile from '../user/profile.model';
-import { ProfileService } from '../user/profile/profile.service';
 
 @Component({
   selector: 'app-home',

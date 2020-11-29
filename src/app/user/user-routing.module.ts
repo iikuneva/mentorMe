@@ -4,14 +4,17 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateEditProfileComponent } from './create-edit-profile/create-edit-profile.component';
+import { ProfileResolverService } from './profile-resolver.service';
 
 const routes: Routes = [
+  { path: 'profile/create', pathMatch:'full', component: CreateEditProfileComponent },
   {
     path: 'profile/:id',
-    component: ProfileComponent
+    component: ProfileComponent, 
+    resolve: [ProfileResolverService]
   },
-  { path: 'profile/create', component: CreateEditProfileComponent },
-  { path: 'profile/:id/edit', component: CreateEditProfileComponent },
+  
+  { path: 'profile/:id/edit', component: CreateEditProfileComponent, resolve: [ProfileResolverService] },
   {
     path: 'login',
     component: LoginComponent

@@ -1,13 +1,13 @@
 export default interface IProfile {
     id?: string,
-    userEmail: string,
+    userEmail?: string,
     main: {
         name: string,
         image: string,
-        role: boolean,
+        role: string,
         position: string,
         slogan: string,
-        status: boolean,
+        status: string,
     },
     contact: {
         email: string,

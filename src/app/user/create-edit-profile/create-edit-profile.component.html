@@ -3,7 +3,7 @@
 <div class="row container-fluid justify-content-center mt-5">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="border-bottom mb-3">
-            <h3 class="card-title text-dark" [textContent]="isCreateMode ? 'Create profile' : 'Edit profile'"></h3>
+            <h3 class="card-title text-dark" [textContent]="isEditMode ?  'Edit profile' : 'Create profile'"></h3>
         </div>
 
         <div formGroupName="main">
@@ -28,8 +28,8 @@
             <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" formControlName="role">
-                    <option [attr.value]="'mentor'">Mentor</option>
-                    <option [attr.value]="'mentee'">Mentee</option>
+                    <option [attr.value]="'mentor'" [attr.selected]="'mentor' === selectedOptionRole ? 'true' : null">Mentor</option>
+                    <option [attr.value]="'mentee'" [attr.selected]="'mentee' === selectedOptionRole ? 'true' : null">Mentee</option>
                 </select>
                 <span *ngIf="profileForm.get('main.role').touched && !profileForm.get('main.role').valid">
                     <small class="text-sm text-danger" *ngIf="profileForm.get('main.role').errors['required']">Role is
@@ -56,8 +56,8 @@
             <div class="form-group">
                 <label for="status">Status</label>
                 <select class="form-control" id="status" formControlName="status">
-                    <option [attr.value]="'Currently Open for mentorship'" [attr.selected]="'Currently Open for mentorship' === selectedOption ? 'true' : null">Currently Open for mentorship</option>
-                    <option [attr.value]="'Currently Closed for mentorship'" [attr.selected]="'Currently Closed for mentorship' === selectedOption ? 'true' : null">Currently Closed for mentorship</option>
+                    <option [attr.value]="'Currently Open for mentorship'" [attr.selected]="'Currently Open for mentorship' === selectedOptionStatus ? 'true' : null">Currently Open for mentorship</option>
+                    <option [attr.value]="'Currently Closed for mentorship'" [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">Currently Closed for mentorship</option>
                 </select>
             </div>
 
