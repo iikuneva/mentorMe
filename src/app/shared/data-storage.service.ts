@@ -63,7 +63,7 @@ export class DataStorageService {
     return this.profiles;
   }
 
-  fetchProfileById(id: string): Observable <IProfile> {
+  fetchProfileById(id: string): Observable<IProfile> {
     return this.http.get<IProfile>(environment.dbUrl+ 'profile/' + id + '.json').pipe(
       map(data =>{
       return {

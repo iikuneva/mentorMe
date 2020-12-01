@@ -10,12 +10,14 @@ import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home/home.component';
+import { MentorshipComponent } from './mentorship/mentorship.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    MentorshipComponent
   ],
   imports: [
     BrowserModule,
