@@ -12,14 +12,14 @@
     <tbody>
         <tr class="table-secondary" *ngFor="let profile of (mentorshipProfiles | async)">
             <td>
-                <a href="javascript:;">
+                <a [routerLink]="['/profile', profile.profileId]">
                     <img class="img-responsive rounded-circle" style="max-width: 50px;" alt="Avatar" [src]="profile.main.image">
                 </a>
             </td>
             <th scope="row">{{profile.main.name}}</th>
             <td>Column content</td>
-            <td><button type="button" class="btn btn-success" (click)="onAccept()">Accept</button></td>
-            <td><button type="button" class="btn btn-danger" (click)="onReject()">Reject</button></td>
+            <td><button #btnAccept type="button" class="btn btn-success" [disabled]="disableButton(profile)" (click)="onAccept(profile)">Accept</button></td>
+            <td><button #btnReject type="button" class="btn btn-danger" [disabled]="disableButton(profile)" (click)="onReject()">Reject</button></td>
         </tr>
     </tbody>
 </table>

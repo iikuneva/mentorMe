@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
     // write in DB
     const idMentor = this.profile.id;
     this.dataStorageService.getLoggedUserProfileId().subscribe(id => this.idMentee = id);
-    this.dataStorageService.addToMentornshipArray(this.idMentee, idMentor);
+    this.dataStorageService.addToMentorshipArray(this.idMentee, idMentor);
     // show in Mentornship
     //change button text and deactivate btn
   }

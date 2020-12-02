@@ -64,13 +64,14 @@ export class DataStorageService {
   }
 
   fetchProfileById(id: string): Observable<IProfile> {
-    return this.http.get<IProfile>(environment.dbUrl+ 'profile/' + id + '.json').pipe(
-      map(data =>{
-      return {
-      ...data,
-      id}
-    }),
-    tap(profile => this.userProfile = profile));
+    return this.http.get<IProfile>(environment.dbUrl + 'profile/' + id + '.json').pipe(
+      map(data => {
+        return {
+          ...data,
+          id
+        }
+      }),
+      tap(profile => this.userProfile = profile));
     // return this.profiles.find(p => p.id === id);
   }
 
@@ -78,9 +79,10 @@ export class DataStorageService {
     return this.userProfile;
   }
 
-  addToMentornshipArray(idMentee: string, idMentor: string){
-      this.http.post(environment.dbUrl + 'profile/' + idMentor + '/mentorship' + '.json', {profileId:idMentee}).subscribe()
-      this.http.post(environment.dbUrl + 'profile/' + idMentee + '/mentorship' + '.json', {profileId:idMentor}).subscribe()
+  addToMentorshipArray(idMentee: string, idMentor: string) {
+    this.http.post(environment.dbUrl + 'profile/' + idMentor + '/mentorship' + '.json', { profileId: idMentee }).subscribe()
+    this.http.post(environment.dbUrl + 'profile/' + idMentee + '/mentorship' + '.json', { profileId: idMentor }).subscribe()
   }
 
+  
 }
