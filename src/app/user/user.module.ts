@@ -7,6 +7,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateEditProfileComponent } from './create-edit-profile/create-edit-profile.component';
+import { MentorshipComponent } from './mentorship/mentorship.component';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { CreateEditProfileComponent } from './create-edit-profile/create-edit-pr
     ProfileComponent, 
     LoginComponent, 
     RegisterComponent, 
-    CreateEditProfileComponent],
+    CreateEditProfileComponent, MentorshipComponent],
   imports: [
     RouterModule,
     UserRoutingModule, 

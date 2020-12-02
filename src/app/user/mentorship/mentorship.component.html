@@ -1,0 +1,25 @@
+<h3>My mentorship list</h3>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Avatar</th>
+            <th scope="col">Name</th>
+            <th scope="col">Response</th>
+            <th scope="col" colspan="2">Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-secondary" *ngFor="let profile of (mentorshipProfiles | async)">
+            <td>
+                <a href="javascript:;">
+                    <img class="img-responsive rounded-circle" style="max-width: 50px;" alt="Avatar" [src]="profile.main.image">
+                </a>
+            </td>
+            <th scope="row">{{profile.main.name}}</th>
+            <td>Column content</td>
+            <td><button type="button" class="btn btn-success" (click)="onAccept()">Accept</button></td>
+            <td><button type="button" class="btn btn-danger" (click)="onReject()">Reject</button></td>
+        </tr>
+    </tbody>
+</table>

@@ -6,27 +6,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './home/home.component';
-import { MentorshipComponent } from './mentorship/mentorship.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MentorshipComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
-    SharedModule,
-    UserModule,
-    FontAwesomeModule
+    UserModule
   ],
   providers: [],
   bootstrap: [

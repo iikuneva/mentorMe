@@ -1,38 +1,43 @@
 <div class="container">
     <div class="row mt-5">
-        <div class="col-sm-4">
-            <img class="img-responsive" style="max-width: 150px;" [src]="profile.main.image" alt="Profile image">
-            <h6>RATING</h6>
+        <div class="col-sm-4 ">
+            <img class="img-responsive rounded-circle" style="max-width: 250px;" [src]="profile.main.image" alt="Profile image">
         </div>
         <div class="col-sm-4">
             <h2>{{profile.main.name}}</h2>
-            <h5>{{profile.main.position}}</h5>
+            <p><strong>{{profile.main.position}}</strong></p>
             <p>{{profile.main.slogan}}</p>
         </div>
+
+        <!-- //show if profile is mentor and status is Open and profile is different from loggedUser -->
         <div class="col-sm-4">
-                <h6 class="text-success">{{profile.main.status}}</h6>
-                <button type="button" class="btn btn-primary">Mentor Me</button>
+            <div *ngIf="(profile.main.role | lowercase) === 'mentor'">
+                <button type="button" class="btn btn-primary" (click)="onMentorMe()">Mentor Me</button>
+            </div>
+            <p><strong>{{profile.main.role}}</strong></p>
+            <p><strong>{{profile.main.status}}</strong></p>
         </div>
+
     </div>
-    <hr>
-    <div class="d-flex flex-row justify-content-center">
+    <!-- <hr> -->
+    <div class="d-flex flex-row justify-content-center align-items-center border-top border-bottom p-2">
         <div class="col-sm-4 d-flex flex-row justify-content-center">
-            <fa-icon [icon]="faEmail"></fa-icon>
-            <p>{{profile.contact.email}}</p>
+            <fa-icon [icon]="faEmail" class="mr-2"></fa-icon>
+            <p class="m-0">{{profile.contact.email}}</p>
         </div>
 
         <div class="col-sm-4 d-flex flex-row justify-content-center">
-            <fa-icon [icon]="faLocation"></fa-icon>
-            <p>{{profile.contact.city}}</p>
+            <fa-icon [icon]="faLocation" class="mr-2"></fa-icon>
+            <p class="m-0">{{profile.contact.city}}</p>
         </div>
 
         <div class="col-sm-4 d-flex flex-row justify-content-center">
-            <fa-icon [icon]="faLink"></fa-icon>
-            <p>{{profile.contact.links}}</p>
+            <fa-icon [icon]="faLink" class="mr-2"></fa-icon>
+            <p class="m-0">{{profile.contact.links}}</p>
         </div>
     </div>
-    <hr>
-    <div class="row">
+    <!-- <hr> -->
+    <div class="row mt-3">
         <div class="col-sm-6">
             <h6>Education</h6>
             <p>{{profile.education}}</p>
@@ -64,7 +69,7 @@
         </div> -->
         <div *ngIf="isOwner">
             <!-- <button type="button" class="btn btn-light btn-sm" (click)="createProfile()">Create profile</button> -->
-            <button type="button" class="btn btn-light btn-sm" (click)="editProfile()">Edit profile</button>
+            <button type="button" class="btn btn-light btn-sm" (click)="onEditProfile()">Edit profile</button>
         </div>
     </div>
 </div>

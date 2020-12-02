@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import IProfile from '../user/profile.model';
 import { ILoggedUser } from '../user/auth/auth.model';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment'
 
 export class DataStorageService {
   user: ILoggedUser = null;
-  loggedUserProfileId = new Subject<string>();
+  loggedUserProfileId = new BehaviorSubject<string>('');
   userProfile: IProfile = null;
   profiles: IProfile[] = [];
 
@@ -76,6 +76,11 @@ export class DataStorageService {
 
   getUserProfile(): IProfile {
     return this.userProfile;
+  }
+
+  addToMentornshipArray(idMentee: string, idMentor: string){
+      this.http.post(environment.dbUrl + 'profile/' + idMentor + '/mentorship' + '.json', {profileId:idMentee}).subscribe()
+      this.http.post(environment.dbUrl + 'profile/' + idMentee + '/mentorship' + '.json', {profileId:idMentor}).subscribe()
   }
 
 }

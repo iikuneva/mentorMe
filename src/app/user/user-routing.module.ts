@@ -5,6 +5,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateEditProfileComponent } from './create-edit-profile/create-edit-profile.component';
 import { ProfileResolverService } from './profile-resolver.service';
+import { MentorshipComponent } from './mentorship/mentorship.component';
 
 const routes: Routes = [
   { path: 'profile/create', pathMatch:'full', component: CreateEditProfileComponent },
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'mentorship',
+    component: MentorshipComponent
   }
 ];
 
