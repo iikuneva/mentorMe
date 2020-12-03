@@ -1,25 +1,40 @@
-<h3>My mentorship list</h3>
-
-<table class="table table-hover">
-    <thead>
-        <tr class="table-primary">
-            <th scope="col">Avatar</th>
-            <th scope="col">Name</th>
-            <th scope="col">Response</th>
-            <th scope="col" colspan="2">Response</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="table-secondary" *ngFor="let profile of (mentorshipProfiles | async)">
-            <td>
-                <a [routerLink]="['/profile', profile.profileId]">
-                    <img class="img-responsive rounded-circle" style="max-width: 50px;" alt="Avatar" [src]="profile.main.image">
-                </a>
-            </td>
-            <th scope="row">{{profile.main.name}}</th>
-            <td>Column content</td>
-            <td><button #btnAccept type="button" class="btn btn-success" [disabled]="disableButton(profile)" (click)="onAccept(profile)">Accept</button></td>
-            <td><button #btnReject type="button" class="btn btn-danger" [disabled]="disableButton(profile)" (click)="onReject()">Reject</button></td>
-        </tr>
-    </tbody>
-</table>
+<div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0">
+    <h3>My mentorship list</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">Avatar</th>
+                <th scope="col">Name</th>
+                <th scope="col">Response</th>
+                <th scope="col" colspan="2">Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-secondary" *ngFor="let profile of mentorshipProfiles">
+                <td>
+                    <a [routerLink]="['/profile', profile.profileId]">
+                        <!-- <div> -->
+                        <img class="img-responsive rounded-circle img-circle" style="max-width: 50px;" alt="Avatar"
+                            [src]="profile.main.image">
+                        <!-- </div> -->
+                    </a>
+                </td>
+                <th scope="row">{{profile.main.name}}</th>
+                <!-- <td>{{profile.mentorshipId?.isAccepted ? 'Accepted' ||
+                !profile.mentorshipId?.isAccepted ? 'Rejected' : 'Pending'}}</td> -->
+                <td><span
+                        [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'acepted' : 'rejected'"></span>
+                </td>
+                <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button type="button" class="btn btn-success"
+                        [disabled]="!!disableButton(profile).isAccepted"
+                        (click)="onAccept(profile, $event)">Accept</button></td>
+                <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button type="button" class="btn btn-danger"
+                        [disabled]="!!disableButton(profile).isAccepted"
+                        (click)="onReject(profile, $event)">Reject</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!mentorshipProfiles || mentorshipProfiles?.length === 0">
+    <h4>There is no mentorship yet...</h4>
+</div>

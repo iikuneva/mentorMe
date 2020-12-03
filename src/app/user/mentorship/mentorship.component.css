@@ -1,0 +1,11 @@
+img {
+    /* display: block;
+    height: auto;
+    max-width: 100%; */
+    border-radius: 50%;
+    /* width: 50%;
+    height: 50%; */
+  }
+  .img-circle {
+    width:500px;
+}

@@ -4,8 +4,6 @@ import { DataStorageService } from '../../shared/data-storage.service';
 import IProfile from '../profile.model';
 // import {ILoggedUser} from '../auth/auth.model';
 import { faMapMarkerAlt, faEnvelope, faLink } from '@fortawesome/free-solid-svg-icons';
-import { withLatestFrom } from 'rxjs/operators';
-import { mainModule } from 'process';
 
 
 @Component({
@@ -48,7 +46,7 @@ export class ProfileComponent implements OnInit {
   onMentorMe(): void {
     // write in DB
     const idMentor = this.profile.id;
-    this.dataStorageService.getLoggedUserProfileId().subscribe(id => this.idMentee = id);
+    this.dataStorageService.getLoggedUserProfile().subscribe(id => this.idMentee = id.profileId);
     this.dataStorageService.addToMentorshipArray(this.idMentee, idMentor);
     // show in Mentornship
     //change button text and deactivate btn

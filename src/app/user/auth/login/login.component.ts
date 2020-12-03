@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
       password: formData.password
     };
     this.authService.loginUser(userForm);
-    
-
   }
 
 

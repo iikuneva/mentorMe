@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
-    this.dataStorageService.getLoggedUserProfileId().subscribe(id => this.userProfileId = id);
+    this.dataStorageService.getLoggedUserProfile().subscribe(id => id === null ? this.userProfileId = null : this.userProfileId = id.profileId);
   }
   logout() {
     this.authService.logout();

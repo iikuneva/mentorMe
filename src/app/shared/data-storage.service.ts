@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment'
 
 export class DataStorageService {
   user: ILoggedUser = null;
-  loggedUserProfileId = new BehaviorSubject<string>('');
+  loggedUserProfile = new BehaviorSubject<{profileId: string, role: string}>({profileId: null, role: null});
   userProfile: IProfile = null;
   profiles: IProfile[] = [];
 
@@ -47,16 +47,20 @@ export class DataStorageService {
     if (email) {
       this.http.get(environment.dbUrl + '/profile.json?orderBy="userEmail"&equalTo="' + email + '"').subscribe(
         data => {
-          this.loggedUserProfileId.next(Object.keys(data)[0]);
+          
+          if(Object.keys(data).length !== 0){
+            const fetchedProfile: IProfile = data[Object.keys(data)[0]];
+            this.loggedUserProfile.next({profileId: Object.keys(data)[0], role: fetchedProfile.main.role});
+          }
         }
       )
     } else {
-      this.loggedUserProfileId.next(null);
+      this.loggedUserProfile.next(null);
     }
   }
 
-  getLoggedUserProfileId() {
-    return this.loggedUserProfileId;
+  getLoggedUserProfile() {
+    return this.loggedUserProfile;
   }
 
   getAllProfiles(): IProfile[] {

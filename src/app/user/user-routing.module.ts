@@ -6,16 +6,18 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateEditProfileComponent } from './create-edit-profile/create-edit-profile.component';
 import { ProfileResolverService } from './profile-resolver.service';
 import { MentorshipComponent } from './mentorship/mentorship.component';
+import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'profile/create', pathMatch:'full', component: CreateEditProfileComponent },
+  { path: 'profile/create', pathMatch:'full', component: CreateEditProfileComponent, canActivate: [AuthGuard] },
   {
     path: 'profile/:id',
     component: ProfileComponent, 
-    resolve: [ProfileResolverService]
+    resolve: [ProfileResolverService],
+    canActivate: [AuthGuard]
   },
   
-  { path: 'profile/:id/edit', component: CreateEditProfileComponent, resolve: [ProfileResolverService] },
+  { path: 'profile/:id/edit', component: CreateEditProfileComponent, resolve: [ProfileResolverService], canActivate: [AuthGuard]},
   {
     path: 'login',
     component: LoginComponent
@@ -26,7 +28,8 @@ const routes: Routes = [
   },
   {
     path: 'mentorship',
-    component: MentorshipComponent
+    component: MentorshipComponent, 
+    canActivate: [AuthGuard]
   }
 ];
 

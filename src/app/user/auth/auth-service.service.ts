@@ -30,25 +30,27 @@ export class AuthService {
       returnSecureToken: true
     }
     this.http.post<ILoggedUser>(environment.loginURL + environment.apiKey, bodyUser).pipe(
-      tap(data => this.dataStorageService.setLoggedUserProfile(data.email))
+      tap(data => {
+        sessionStorage.setItem('user', JSON.stringify(data));
+        this.dataStorageService.setLoggedUserProfile(data.email)})
     ).subscribe(newUser => {
       this.dataStorageService.setUser(newUser)
-
       this.router.navigate(['/home']);
     });
     
   }
 
-  // saveUserEmail(userEmail) {
-  //   sessionStorage.setItem('user', user)
-  // }
+  autoLogin(): void {
+    if(sessionStorage.getItem('user')){
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      this.dataStorageService.setLoggedUserProfile(user.email);
+      this.dataStorageService.setUser(user);
+    }
+  }
 
-  // getUserEmail() {
-  //   return sessionStorage.getItem('user')
-  // }
 
   logout() {
-    // sessionStorage.removeItem('email');
+    sessionStorage.removeItem('user');
     this.dataStorageService.setUser(null);
     this.dataStorageService.setLoggedUserProfile(null);
     this.router.navigate(["/home"])

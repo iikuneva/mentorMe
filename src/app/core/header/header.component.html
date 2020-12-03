@@ -11,20 +11,20 @@
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="about">About</a>
             </li>
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" *ngIf="userProfileId">
                 <a class="nav-link" routerLink="mentorship">Mentorship</a>
             </li>
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" *ngIf="userProfileId">
                 <a class="nav-link" [routerLink]="['profile', userProfileId ? userProfileId : 'create']">My Profile</a>
             </li>
             <li class="nav-item flex-grow-1"></li>
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" *ngIf="!userProfileId">
                 <a class="nav-link" routerLink="login">Login</a>
             </li>
-            <li class="nav-item" routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active" *ngIf="!userProfileId">
                 <a class="nav-link" routerLink="register">Register</a>
             </li>
-            <li class="nav-item" >
+            <li class="nav-item" *ngIf="userProfileId">
                 <a class="nav-link" (click)="logout()" >Logout</a>
             </li>
         </ul>

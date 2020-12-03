@@ -21,10 +21,16 @@ export default interface IProfile {
         languages: string,
         interests: string,
     },
+    mentorship?: Mentorship,
     education: string[],
     experience: string[],
     projects: string[],
     // rating?: number,
     // mentorship?: string[]
+}
+
+export interface Mentorship{
+    profileId: string;
+    isAccepted: boolean
 }
 
