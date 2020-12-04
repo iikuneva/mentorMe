@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component,  OnInit, Renderer2 } from '@angular/core';
 import { MentorshipService } from './mentorship.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Mentorship } from '../profile.model';
@@ -12,28 +12,20 @@ export class MentorshipComponent implements OnInit {
   loggedUserProfile: { profileId: string, role: string };
   mentorshipProfiles: any;
   mentorshipId: string;
-  // @ViewChild('btnAccept') btnAccept: ElementRef;
-  // @ViewChild('btnReject') btnReject: ElementRef;
 
   constructor(public mentorshipService: MentorshipService, private dataStorageService: DataStorageService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
-    if (this.loggedUserProfile.profileId) {
-      this.mentorshipService.fetchMentorshipProfiles(this.loggedUserProfile.profileId).subscribe(
-        profiles => {
-          this.mentorshipProfiles = profiles;
-        }
-      );
+    if(this.loggedUserProfile.profileId){
+        this.mentorshipService.fetchMentorshipProfiles(this.loggedUserProfile.profileId).subscribe(
+          profiles => this.mentorshipProfiles = profiles
+            );
     }
   }
 
   onAccept(profile: any, event: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
-    // event.target.disabled = true;
-    // let find = Object.values(profile.mentorship).find((obj: any) => obj.profileId === this.profileId)
-    // console.log(find)
-    // console.log(profile)
   }
   onReject(profile: any, event: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);

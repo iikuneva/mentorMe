@@ -12,12 +12,14 @@ import { environment } from '../../environments/environment'
 })
 
 export class DataStorageService {
-  user: ILoggedUser = null;
-  loggedUserProfile = new BehaviorSubject<{profileId: string, role: string}>({profileId: null, role: null});
+  user = new BehaviorSubject<ILoggedUser>(null);
+  loggedUserProfile = new BehaviorSubject<{profileId: string, role: string}>({profileId: '', role: ''});
   userProfile: IProfile = null;
   profiles: IProfile[] = [];
 
   constructor(private http: HttpClient) { }
+
+
 
   fetchAllProfiles(): Observable<IProfile[]> {
     return this.http.get(environment.dbUrl + 'profile.json').pipe(
@@ -35,11 +37,15 @@ export class DataStorageService {
     )
   }
 
-  setUser(user: ILoggedUser) {
-    this.user = user;
+  getAllProfiles(): IProfile[] {
+    return this.profiles;
   }
 
-  getUser(): ILoggedUser {
+  setUser(user: ILoggedUser) {
+    this.user.next(user);
+  }
+
+  getUser() {
     return this.user;
   }
 
@@ -47,7 +53,6 @@ export class DataStorageService {
     if (email) {
       this.http.get(environment.dbUrl + '/profile.json?orderBy="userEmail"&equalTo="' + email + '"').subscribe(
         data => {
-          
           if(Object.keys(data).length !== 0){
             const fetchedProfile: IProfile = data[Object.keys(data)[0]];
             this.loggedUserProfile.next({profileId: Object.keys(data)[0], role: fetchedProfile.main.role});
@@ -63,9 +68,7 @@ export class DataStorageService {
     return this.loggedUserProfile;
   }
 
-  getAllProfiles(): IProfile[] {
-    return this.profiles;
-  }
+
 
   fetchProfileById(id: string): Observable<IProfile> {
     return this.http.get<IProfile>(environment.dbUrl + 'profile/' + id + '.json').pipe(

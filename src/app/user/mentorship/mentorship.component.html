@@ -6,22 +6,20 @@
                 <th scope="col">Avatar</th>
                 <th scope="col">Name</th>
                 <th scope="col">Response</th>
-                <th scope="col" colspan="2">Response</th>
+                <th *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'" scope="col" colspan="2">Send response</th>
             </tr>
         </thead>
         <tbody>
             <tr class="table-secondary" *ngFor="let profile of mentorshipProfiles">
                 <td>
                     <a [routerLink]="['/profile', profile.profileId]">
-                        <!-- <div> -->
-                        <img class="img-responsive rounded-circle img-circle" style="max-width: 50px;" alt="Avatar"
+                        <div class="img-cropper">
+                        <img class="img-responsive profile-pic" style="max-width: 50px;" alt="Avatar"
                             [src]="profile.main.image">
-                        <!-- </div> -->
+                        </div>
                     </a>
                 </td>
                 <th scope="row">{{profile.main.name}}</th>
-                <!-- <td>{{profile.mentorshipId?.isAccepted ? 'Accepted' ||
-                !profile.mentorshipId?.isAccepted ? 'Rejected' : 'Pending'}}</td> -->
                 <td><span
                         [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'acepted' : 'rejected'"></span>
                 </td>

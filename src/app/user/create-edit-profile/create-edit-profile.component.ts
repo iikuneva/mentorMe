@@ -54,7 +54,7 @@ export class CreateEditProfileComponent implements OnInit {
         languages: [this.isEditMode? this.profile.description.languages : null, Validators.required],
         interests: [this.isEditMode? this.profile.description.interests : null, Validators.required],
       }),
-      userEmail: this.dataStorageService.getUser().email,
+      userEmail: this.dataStorageService.getUser().getValue().email,
       education: this.fb.array([
         this.fb.control('')
       ]),

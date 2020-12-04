@@ -17,7 +17,7 @@ export class CreateEditProfileService  {
   constructor(private http: HttpClient, private dataStorageService: DataStorageService, private router: Router ) { }
 
   createProfile(profile: IProfile): void {
-    const profileBody = { ...profile, userEmail: this.dataStorageService.getUser().email }
+    const profileBody = { ...profile, userEmail: this.dataStorageService.getUser().getValue().email }
 
     this.http.post<{ name: string }>(environment.dbUrl + 'profile.json', profileBody).subscribe(newProfile => {
       this.profile = { ...profileBody, id: newProfile.name };

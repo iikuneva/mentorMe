@@ -20,9 +20,9 @@
         </ul>
 
         <hr class="my-4">
-        <p>If you want to be a mentor or  mentee - register, create a profile and enjoy the jurney!</p>
+        <p>If you want to be a mentor or mentee - login, create a profile and enjoy the jurney!</p>
         <p class="lead">
-            <!-- <a class="btn btn-primary btn-lg" [routerLink]="['/register']" role="button">Register</a> -->
+            <a class="btn btn-primary btn-lg" [routerLink]="['/login']" role="button">Login</a>
         </p>
     </div>
     <div class="card-deck d-flex flex-row justify-content-center mt-5">
@@ -34,7 +34,7 @@
                     <h5 class="card-title">{{profile.main.name}}</h5>
                     <h6 class="card-subtitle text-muted">{{profile.main.position}}</h6>
                 </div>
-                <div class="d-flex justify-content-center mb-3">
+                <div class="d-flex justify-content-center mb-3" *ngIf="user">
                     <a [routerLink]="['/profile', profile.id]" class="btn btn-dark w-50">Details</a>
                 </div>
             </div>

@@ -25,12 +25,10 @@ export default interface IProfile {
     education: string[],
     experience: string[],
     projects: string[],
-    // rating?: number,
-    // mentorship?: string[]
 }
 
 export interface Mentorship{
-    profileId: string;
+    profileId: string,
     isAccepted: boolean
 }
 

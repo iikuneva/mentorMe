@@ -1,18 +1,20 @@
 <div class="container">
     <div class="row mt-5">
-        <div class="col-sm-4 ">
-            <img class="img-responsive rounded-circle" style="max-width: 250px;" [src]="profile.main.image" alt="Profile image">
+        <div class="col-sm-5">
+            <div class="img-cropper">
+            <img class="profile-pic" [src]="profile.main.image" alt="Profile image">
         </div>
+    </div>
         <div class="col-sm-4">
             <h2>{{profile.main.name}}</h2>
             <p><strong>{{profile.main.position}}</strong></p>
             <p>{{profile.main.slogan}}</p>
         </div>
 
-        <!-- //show if profile is mentor and status is Open and profile is different from loggedUser -->
+        <!-- //show if profile is mentor and profile is different from loggedUser and mentee is not requested for mentorship-->
         <div class="col-sm-4">
-            <div *ngIf="(profile.main.role | lowercase) === 'mentor'">
-                <button type="button" class="btn btn-primary" (click)="onMentorMe()">Mentor Me</button>
+            <div *ngIf="(profile.main.role | lowercase) === 'mentor' && !isOwner && !isAlreadyInMentorship">
+                <button type="button" class="btn btn-primary" (click)="onMentorMe($event)">Mentor Me</button>
             </div>
             <p><strong>{{profile.main.role}}</strong></p>
             <p><strong>{{profile.main.status}}</strong></p>
@@ -69,7 +71,7 @@
         </div> -->
         <div *ngIf="isOwner">
             <!-- <button type="button" class="btn btn-light btn-sm" (click)="createProfile()">Create profile</button> -->
-            <button type="button" class="btn btn-light btn-sm" (click)="onEditProfile()">Edit profile</button>
+            <button type="button" class="btn btn-outline-primary" (click)="onEditProfile()">Edit profile</button>
         </div>
     </div>
 </div>
