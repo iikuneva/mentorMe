@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { CreateEditProfileService } from './create-edit-profile.service';
-import { mainModule } from 'process';
 import { DataStorageService } from '../../shared/data-storage.service';
-import IProfile from '../profile.model'
+import IProfile from '../profile.model';
 
 @Component({
   selector: 'app-create-edit-profile',
@@ -35,24 +33,24 @@ export class CreateEditProfileComponent implements OnInit {
     }
     this.profileForm = this.fb.group({
       main: this.fb.group({
-        name: [this.isEditMode? this.profile.main.name : null, Validators.required],
-        image: [this.isEditMode? this.profile.main.image : null, Validators.required],
-        role: [this.isEditMode? this.profile.main.role : null, Validators.required],
-        position: [this.isEditMode? this.profile.main.position : null, Validators.required],
-        slogan: [this.isEditMode? this.profile.main.slogan : null, Validators.required],
-        status: [this.isEditMode? this.profile.main.status : null, Validators.required]
+        name: [this.isEditMode ? this.profile.main.name : null, Validators.required],
+        image: [this.isEditMode ? this.profile.main.image : null, Validators.required],
+        role: [this.isEditMode ? this.profile.main.role : null, Validators.required],
+        position: [this.isEditMode ? this.profile.main.position : null, Validators.required],
+        slogan: [this.isEditMode ? this.profile.main.slogan : null, Validators.required],
+        status: [this.isEditMode ? this.profile.main.status : null, Validators.required]
       }),
       contact: this.fb.group({
-        email: [this.isEditMode? this.profile.contact.email : null, Validators.required],
-        city: [this.isEditMode? this.profile.contact.city : null, Validators.required],
-        links: [this.isEditMode? this.profile.contact.links : null, Validators.required]
+        email: [this.isEditMode ? this.profile.contact.email : null, Validators.required],
+        city: [this.isEditMode ? this.profile.contact.city : null, Validators.required],
+        links: [this.isEditMode ? this.profile.contact.links : null, Validators.required]
       }),
       description: this.fb.group({
-        about: [this.isEditMode? this.profile.description.about : null, Validators.required],
-        techSkills: [this.isEditMode? this.profile.description.techSkills : null, Validators.required],
-        softSkills: [this.isEditMode? this.profile.description.softSkills : null, Validators.required],
-        languages: [this.isEditMode? this.profile.description.languages : null, Validators.required],
-        interests: [this.isEditMode? this.profile.description.interests : null, Validators.required],
+        about: [this.isEditMode ? this.profile.description.about : null, Validators.required],
+        techSkills: [this.isEditMode ? this.profile.description.techSkills : null, Validators.required],
+        softSkills: [this.isEditMode ? this.profile.description.softSkills : null, Validators.required],
+        languages: [this.isEditMode ? this.profile.description.languages : null, Validators.required],
+        interests: [this.isEditMode ? this.profile.description.interests : null, Validators.required],
       }),
       userEmail: this.dataStorageService.getUser().getValue().email,
       education: this.fb.array([
@@ -67,44 +65,42 @@ export class CreateEditProfileComponent implements OnInit {
     });
 
     // if (this.isEditMode) {
-      // this.profiles = this.dataStorageService.getAllProfiles();
-      // this.route.params.subscribe((params: Params) => {
-      //   this.profile = this.dataStorageService.getProfileById(params.id);
-      // this.profileSubscription = this.profile.subscribe((profile) => {
-      // this.profile = this.dataStorageService.getProfileById(this.profileId);
+    // this.profiles = this.dataStorageService.getAllProfiles();
+    // this.route.params.subscribe((params: Params) => {
+    //   this.profile = this.dataStorageService.getProfileById(params.id);
+    // this.profileSubscription = this.profile.subscribe((profile) => {
+    // this.profile = this.dataStorageService.getProfileById(this.profileId);
 
-      // this.profileId = this.route.snapshot.params.id;
-      // this.profile = this.dataStorageService.getProfileById(this.profileId);
-      // this.profileForm.setValue = ({
-      //   main: {
-      //     name: this.profile.main.name,
-      //     image: this.profile.main.image,
-      //     role: this.profile.main.role,
-      //     position: this.profile.main.position,
-      //     slogan: this.profile.main.slogan,
-      //     status: this.profile.main.status
-      //   },
-      //   'contact': {
-      //     'email': this.profile.contact.email,
-      //     'city': this.profile.contact.city,
-      //     'links': this.profile.contact.links,
-      //   },
-      //   'description': {
-      //     'about': this.profile.description.about,
-      //     'techSkills': this.profile.description.techSkills,
-      //     'softSkills': this.profile.description.softSkills,
-      //     'languages': this.profile.description.languages,
-      //     'interests': this.profile.description.interests,
-      //   },
-      //   'education': this.profile.education,
-      //   'experience': this.profile.experience,
-      //   'projects': this.profile.projects,
-      //   // this.profileId = profile.id;
-      // })
+    // this.profileId = this.route.snapshot.params.id;
+    // this.profile = this.dataStorageService.getProfileById(this.profileId);
+    // this.profileForm.setValue = ({
+    //   main: {
+    //     name: this.profile.main.name,
+    //     image: this.profile.main.image,
+    //     role: this.profile.main.role,
+    //     position: this.profile.main.position,
+    //     slogan: this.profile.main.slogan,
+    //     status: this.profile.main.status
+    //   },
+    //   'contact': {
+    //     'email': this.profile.contact.email,
+    //     'city': this.profile.contact.city,
+    //     'links': this.profile.contact.links,
+    //   },
+    //   'description': {
+    //     'about': this.profile.description.about,
+    //     'techSkills': this.profile.description.techSkills,
+    //     'softSkills': this.profile.description.softSkills,
+    //     'languages': this.profile.description.languages,
+    //     'interests': this.profile.description.interests,
+    //   },
+    //   'education': this.profile.education,
+    //   'experience': this.profile.experience,
+    //   'projects': this.profile.projects,
+    //   // this.profileId = profile.id;
+    // })
     // }
   }
-
-
 
   get education() {
     return this.profileForm.get('education') as FormArray;
@@ -139,7 +135,7 @@ export class CreateEditProfileComponent implements OnInit {
   }
 
   deleteProject(index: number) {
-    (<FormArray>this.profileForm.get('project')).removeAt(index);
+    (<FormArray>this.profileForm.get('projects')).removeAt(index);
   }
 
   onSubmit(): void {
@@ -149,9 +145,15 @@ export class CreateEditProfileComponent implements OnInit {
     } else {
       this.createEditProfileService.createProfile(profileData);
     }
-    
   }
 
-  cancel(): void { }
+  cancel(): void {
+    this.profileForm.reset();
+    if (this.isEditMode) {
+      this.router.navigate(['../'], { relativeTo: this.route });
+      return;
+    }
+      this.router.navigate([`/home`]);
+  }
 
 }

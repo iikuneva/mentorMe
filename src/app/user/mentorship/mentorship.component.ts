@@ -12,6 +12,7 @@ export class MentorshipComponent implements OnInit {
   loggedUserProfile: { profileId: string, role: string };
   mentorshipProfiles: any;
   mentorshipId: string;
+  disableButtons: boolean = false;
 
   constructor(public mentorshipService: MentorshipService, private dataStorageService: DataStorageService, private renderer: Renderer2) { }
 
@@ -24,12 +25,13 @@ export class MentorshipComponent implements OnInit {
     }
   }
 
-  onAccept(profile: any, event: any) {
+  onAccept(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
+    this.disableButtons = true;
   }
-  onReject(profile: any, event: any) {
+  onReject(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
-    event.target.disabled = true;
+    this.disableButtons = true;
   }
 
   disableButton(profile: any): Mentorship {
@@ -40,9 +42,8 @@ export class MentorshipComponent implements OnInit {
         obj = m;
       }
     }
-    return obj
+    return obj;
   }
-
   // this.renderer.setAttribute(this.btnAccept.nativeElement, "disabled", "true");
   // this.renderer.setAttribute(this.btnReject.nativeElement, "disabled", "true");
 }

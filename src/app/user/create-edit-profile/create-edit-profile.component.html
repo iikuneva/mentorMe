@@ -1,4 +1,3 @@
-<!-- <p>create-edit-profile works!</p> -->
 
 <div class="row container-fluid justify-content-center mt-5">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
@@ -28,8 +27,10 @@
             <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" formControlName="role">
-                    <option [attr.value]="'mentor'" [attr.selected]="'mentor' === selectedOptionRole ? 'true' : null">Mentor</option>
-                    <option [attr.value]="'mentee'" [attr.selected]="'mentee' === selectedOptionRole ? 'true' : null">Mentee</option>
+                    <option [attr.value]="'mentor'" [attr.selected]="'mentor' === selectedOptionRole ? 'true' : null">
+                        Mentor</option>
+                    <option [attr.value]="'mentee'" [attr.selected]="'mentee' === selectedOptionRole ? 'true' : null">
+                        Mentee</option>
                 </select>
                 <span *ngIf="profileForm.get('main.role').touched && !profileForm.get('main.role').valid">
                     <small class="text-sm text-danger" *ngIf="profileForm.get('main.role').errors['required']">Role is
@@ -56,8 +57,12 @@
             <div class="form-group">
                 <label for="status">Status</label>
                 <select class="form-control" id="status" formControlName="status">
-                    <option [attr.value]="'Currently Open for mentorship'" [attr.selected]="'Currently Open for mentorship' === selectedOptionStatus ? 'true' : null">Currently Open for mentorship</option>
-                    <option [attr.value]="'Currently Closed for mentorship'" [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">Currently Closed for mentorship</option>
+                    <option [attr.value]="'Currently Open for mentorship'"
+                        [attr.selected]="'Currently Open for mentorship' === selectedOptionStatus ? 'true' : null">
+                        Currently Open for mentorship</option>
+                    <option [attr.value]="'Currently Closed for mentorship'"
+                        [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">
+                        Currently Closed for mentorship</option>
                 </select>
             </div>
 
@@ -133,53 +138,47 @@
                     are required!</small>
             </div>
         </div>
-        <!-- <div class="form-group">
-                    <label for="education">Education</label>
-                    <div *ngFor="let education of educationList; let education_index= index"></div>
-                        <textarea rows="3" placeholder="Education" id="education" class="form-control"
-                            formControlName="education"></textarea>
-                        <button (click)="addEducation()">Add Education</button>
-                    </div>
-                    <small class="text-sm text-danger"
-                        *ngIf="profileForm.get('description.education').touched && !profileForm.get('description.education').valid">Education
-                        is required!</small>
-                </div> -->
 
         <div formArrayName="education">
-            <button type="button" (click)="addEducation()">Add Education</button>
+            <label>Education</label>
             <div *ngFor="let educ of education.controls; let i=index">
-                <!-- The repeated alias template -->
-                <label>
-                    Education:
-                    <textarea rows="2" [formControlName]="i"></textarea>
-                </label>
-                <button type="button" class="btn btn-danger" (click)="deleteEducation(i)">X</button>
+                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                <div class="mt-2">
+                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addEducation()">Add
+                        Education</button>
+                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                        (click)="deleteEducation(i)">X</button>
+                </div>
             </div>
         </div>
 
         <div formArrayName="experience">
-            <button type="button" (click)="addExperience()">Add experience</button>
+            <label>Work experience</label>
             <div *ngFor="let exp of experience.controls; let i=index">
-                <label>
-                    Work experience:
-                    <textarea rows="2" [formControlName]="i"></textarea>
-                </label>
-                <button type="button" class="btn btn-danger" (click)="deleteExperience(i)">X</button>
+                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                <div class="mt-2">
+                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addExperience()">Add
+                        experience</button>
+                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                        (click)="deleteExperience(i)">X</button>
+                </div>
             </div>
         </div>
 
         <div formArrayName="projects">
-            <button type="button" (click)="addProject()">Add project</button>
+            <label>Projects</label>
             <div *ngFor="let project of projects.controls; let i=index">
-                <label>
-                    Project:
-                    <textarea rows="2" [formControlName]="i"></textarea>
-                </label>
-                <button type="button" class="btn btn-danger" (click)="deleteProject(i)">X</button>
+                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                <div class="mt-2">
+                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addProject()">Add
+                        project</button>
+                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                        (click)="deleteProject(i)">X</button>
+                </div>
             </div>
         </div>
 
-        <div class="d-flex justify-content-around mb-3">
+        <div class="d-flex justify-content-around mb-3 mt-5">
             <button class="btn btn-outline-primary" type="submit" [disabled]="!profileForm.valid">Confirm</button>
             <button class="btn btn-outline-danger" type="button" (click)="cancel()">Cancel</button>
         </div>

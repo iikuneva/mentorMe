@@ -2,18 +2,17 @@
     <div class="row mt-5">
         <div class="col-sm-5">
             <div class="img-cropper">
-            <img class="profile-pic" [src]="profile.main.image" alt="Profile image">
+                <img class="profile-pic" [src]="profile.main.image" alt="Profile image">
+            </div>
         </div>
-    </div>
         <div class="col-sm-4">
             <h2>{{profile.main.name}}</h2>
             <p><strong>{{profile.main.position}}</strong></p>
             <p>{{profile.main.slogan}}</p>
         </div>
-
-        <!-- //show if profile is mentor and profile is different from loggedUser and mentee is not requested for mentorship-->
         <div class="col-sm-4">
-            <div *ngIf="(profile.main.role | lowercase) === 'mentor' && !isOwner && !isAlreadyInMentorship">
+            <div
+                *ngIf="(profile.main.role | lowercase) === 'mentor' && !isOwner && !isAlreadyInMentorship && (loggedUserRole | lowercase) !== 'mentor'">
                 <button type="button" class="btn btn-primary" (click)="onMentorMe($event)">Mentor Me</button>
             </div>
             <p><strong>{{profile.main.role}}</strong></p>
@@ -21,7 +20,6 @@
         </div>
 
     </div>
-    <!-- <hr> -->
     <div class="d-flex flex-row justify-content-center align-items-center border-top border-bottom p-2">
         <div class="col-sm-4 d-flex flex-row justify-content-center">
             <fa-icon [icon]="faEmail" class="mr-2"></fa-icon>
@@ -38,17 +36,20 @@
             <p class="m-0">{{profile.contact.links}}</p>
         </div>
     </div>
-    <!-- <hr> -->
     <div class="row mt-3">
         <div class="col-sm-6">
             <h6>Education</h6>
-            <p>{{profile.education}}</p>
+            <div *ngFor="let edu of profile.education">
+                <p>{{edu}}</p>
+            </div>
             <h6>Work experience</h6>
-            <p>{{profile.experience}}</p>
+            <div *ngFor="let experience of profile.experience">
+                <p>{{experience}}</p>
+            </div>
             <h6>Projects</h6>
-            <p>{{profile.projects}}</p>
-            <h6>Languages</h6>
-            <p>{{profile.description.languages}}</p>
+            <div *ngFor="let project of profile.projects">
+                <p>{{project}}</p>
+            </div>
         </div>
         <div class="col-sm-6">
             <h6>About me</h6>
@@ -59,18 +60,13 @@
             <p>{{profile.description.softSkills}}</p>
             <h6>Interests</h6>
             <p>{{profile.description.interests}}</p>
+            <h6>Languages</h6>
+            <p>{{profile.description.languages}}</p>
         </div>
     </div>
     <hr>
     <div class="row">
-        <!-- <div>
-            <button type="button" class="btn btn-outline-primary" routerLink="edit">Edit profile</button>
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-primary" routerLink="create">Create profile</button>
-        </div> -->
         <div *ngIf="isOwner">
-            <!-- <button type="button" class="btn btn-light btn-sm" (click)="createProfile()">Create profile</button> -->
             <button type="button" class="btn btn-outline-primary" (click)="onEditProfile()">Edit profile</button>
         </div>
     </div>

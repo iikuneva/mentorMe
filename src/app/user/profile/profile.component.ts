@@ -17,12 +17,11 @@ export class ProfileComponent implements OnInit {
   faEmail = faEnvelope;
   faLink = faLink;
   loggedUser: ILoggedUser;
-
+  loggedUserRole: string;
   isOwner: boolean = false;
   isEditMode: boolean = true;
   idMentee: string = null;
   isAlreadyInMentorship: boolean = false;
-  // userProfileId: string = null;
 
   constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) {
   }
@@ -31,6 +30,8 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profile = this.dataStorageService.getUserProfile();
       this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);
+      this.loggedUserRole = this.dataStorageService.getLoggedUserProfile().getValue().role;
+
       if (this.profile.userEmail === this.loggedUser.email) {
         this.isOwner = true;
       }
@@ -38,12 +39,6 @@ export class ProfileComponent implements OnInit {
       if (this.profile.mentorship) {
         this.isAlreadyInMentorship = !!Object.values(this.profile.mentorship).find((obj) => obj.profileId === this.dataStorageService.getLoggedUserProfile().getValue().profileId)
       }
-
-      //loggedUser.profileId === this.profile.profileId
-      // if(){
-      //   this.isAlreadyInMentorship=true;
-      // }
-      // this.dataStorageService.getLoggedUserProfileId().subscribe(id => this.userProfileId = id);
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
-import { IUser } from '../user/auth/auth.model';
+import { ILoggedUser, IUser } from '../user/auth/auth.model';
 import IProfile from '../user/profile.model';
 
 @Component({
@@ -11,13 +11,13 @@ import IProfile from '../user/profile.model';
 export class HomeComponent implements OnInit {
 
   profiles: IProfile[] = [];
-  user: IUser = null;
+  user: ILoggedUser = null;
   
   constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
     this.profiles = this.dataStorageService.getAllProfiles();
-    this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.dataStorageService.getUser().subscribe(user=> this.user = user);
   }
 
 }
