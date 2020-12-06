@@ -18,7 +18,7 @@ export class MentorshipComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
-    if(this.loggedUserProfile.profileId){
+    if(this.loggedUserProfile?.profileId){
         this.mentorshipService.fetchMentorshipProfiles(this.loggedUserProfile.profileId).subscribe(
           profiles => this.mentorshipProfiles = profiles
             );
@@ -44,6 +44,5 @@ export class MentorshipComponent implements OnInit {
     }
     return obj;
   }
-  // this.renderer.setAttribute(this.btnAccept.nativeElement, "disabled", "true");
-  // this.renderer.setAttribute(this.btnReject.nativeElement, "disabled", "true");
+  
 }

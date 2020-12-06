@@ -1,187 +1,198 @@
-
-<div class="row container-fluid justify-content-center mt-5">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <div class="border-bottom mb-3">
+<div>
+    <form class="container-fluid justify-content-center mt-5" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="border-bottom mb-3 row justify-content-center">
             <h3 class="card-title text-dark" [textContent]="isEditMode ?  'Edit profile' : 'Create profile'"></h3>
         </div>
 
-        <div formGroupName="main">
+        <div class="d-flex flex-row justify-content-center align-items-start">
+            <div class="col-md-12 col-lg-6">
 
-            <div class="form-group">
-                <label for="name">Personal name</label>
-                <input type="text" id="name" class="form-control" formControlName="name" required />
-                <span *ngIf="profileForm.get('main.name').touched && !profileForm.get('main.name').valid">
-                    <small class="text-sm text-danger" *ngIf="profileForm.get('main.name').errors['required']">Name is
+                <div class="form-group" formGroupName="main">
+                    <label for="name">Personal name</label>
+                    <input type="text" id="name" class="form-control" formControlName="name" required />
+                    <span *ngIf="profileForm.get('main.name').touched && !profileForm.get('main.name').valid">
+                        <small class="text-sm text-danger" *ngIf="profileForm.get('main.name').errors['required']">Name
+                            is
+                            required!</small>
+                    </span>
+
+
+                    <!-- <div class="form-group"> -->
+                    <label for="image">Image URL</label>
+                    <input type="text" id="image" class="form-control" formControlName="image" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('main.image').touched && !profileForm.get('main.image').valid">Image URL
+                        is
                         required!</small>
-                </span>
-            </div>
+                    <!-- </div> -->
 
-            <div class="form-group">
-                <label for="image">Image URL</label>
-                <input type="text" id="image" class="form-control" formControlName="image" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('main.image').touched && !profileForm.get('main.image').valid">Image URL is
-                    required!</small>
-            </div>
+                    <!-- <div class="form-group"> -->
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" formControlName="role">
+                        <option [attr.value]="'mentor'"
+                            [attr.selected]="'mentor' === selectedOptionRole ? 'true' : null">
+                            Mentor</option>
+                        <option [attr.value]="'mentee'"
+                            [attr.selected]="'mentee' === selectedOptionRole ? 'true' : null">
+                            Mentee</option>
+                    </select>
+                    <span *ngIf="profileForm.get('main.role').touched && !profileForm.get('main.role').valid">
+                        <small class="text-sm text-danger" *ngIf="profileForm.get('main.role').errors['required']">Role
+                            is
+                            required!</small>
+                    </span>
+                    <!-- </div> -->
 
-            <div class="form-group">
-                <label for="role">Role</label>
-                <select class="form-control" id="role" formControlName="role">
-                    <option [attr.value]="'mentor'" [attr.selected]="'mentor' === selectedOptionRole ? 'true' : null">
-                        Mentor</option>
-                    <option [attr.value]="'mentee'" [attr.selected]="'mentee' === selectedOptionRole ? 'true' : null">
-                        Mentee</option>
-                </select>
-                <span *ngIf="profileForm.get('main.role').touched && !profileForm.get('main.role').valid">
-                    <small class="text-sm text-danger" *ngIf="profileForm.get('main.role').errors['required']">Role is
+                    <!-- <div class="form-group"> -->
+                    <label for="position">Position</label>
+                    <input type="text" id="position" class="form-control" formControlName="position" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('main.position').touched && !profileForm.get('main.position').valid">Position
+                        is required!</small>
+                    <!-- </div> -->
+
+                    <!-- <div class="form-group"> -->
+                    <label for="slogan">Slogan</label>
+                    <textarea rows="2" id="slogan" class="form-control" formControlName="slogan" required></textarea>
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('main.slogan').touched && !profileForm.get('main.slogan').valid">Slogan
+                        is
                         required!</small>
-                </span>
+                    <!-- </div> -->
+
+                    <!-- <div class="form-group"> -->
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" formControlName="status">
+                        <option [attr.value]="'Currently Open for mentorship'"
+                            [attr.selected]="'Currently Open for mentorship' === selectedOptionStatus ? 'true' : null">
+                            Currently Open for mentorship</option>
+                        <option [attr.value]="'Currently Closed for mentorship'"
+                            [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">
+                            Currently Closed for mentorship</option>
+                    </select>
+                    <!-- </div> -->
+                </div>
+
+                <!-- <div > -->
+
+                <div class="form-group" formGroupName="contact">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="form-control" formControlName="email" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('contact.email').touched && !profileForm.get('contact.email').valid">Email
+                        is
+                        required!</small>
+                    <!-- </div> -->
+
+                    <!-- <div class="form-group"> -->
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" formControlName="city" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('contact.city').touched && !profileForm.get('contact.city').valid">City
+                        is
+                        required!</small>
+                    <!-- </div> -->
+
+                    <!-- <div class="form-group"> -->
+                    <label for="links">Links</label>
+                    <input type="text" id="links" class="form-control" formControlName="links" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('contact.links').touched && !profileForm.get('contact.links').valid">Link
+                        is
+                        required!</small>
+                </div>
+
+                <!-- </div> -->
             </div>
+            <div class="col-md-12 col-lg-6">
+                <!-- <div > -->
+                <div class="form-group" formGroupName="description">
+                    <label for="about">About me</label>
+                    <textarea rows="3" placeholder="Write something about you..." id="about" class="form-control"
+                        formControlName="about"></textarea>
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('description.about').touched && !profileForm.get('description.about').valid">About
+                        me is required!</small>
+                    <!-- </div> -->
 
-            <div class="form-group">
-                <label for="position">Position</label>
-                <input type="text" id="position" class="form-control" formControlName="position" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('main.position').touched && !profileForm.get('main.position').valid">Position
-                    is required!</small>
-            </div>
+                    <!-- <div class="form-group"> -->
+                    <label for="techSkills">Tech Skills</label>
+                    <input type="text" id="techSkills" class="form-control" formControlName="techSkills" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('description.techSkills').touched && !profileForm.get('description.techSkills').valid">Tech
+                        skills are required!</small>
+                    <!-- </div> -->
 
-            <div class="form-group">
-                <label for="slogan">Slogan</label>
-                <textarea rows="2" id="slogan" class="form-control" formControlName="slogan" required></textarea> <small
-                    class="text-sm text-danger"
-                    *ngIf="profileForm.get('main.slogan').touched && !profileForm.get('main.slogan').valid">Slogan is
-                    required!</small>
-            </div>
+                    <!-- <div class="form-group"> -->
+                    <label for="softSkills">Soft Skills</label>
+                    <input type="text" id="softSkills" class="form-control" formControlName="softSkills" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('description.softSkills').touched && !profileForm.get('description.softSkills').valid">Soft
+                        skills are required!</small>
+                    <!-- </div> -->
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status" formControlName="status">
-                    <option [attr.value]="'Currently Open for mentorship'"
-                        [attr.selected]="'Currently Open for mentorship' === selectedOptionStatus ? 'true' : null">
-                        Currently Open for mentorship</option>
-                    <option [attr.value]="'Currently Closed for mentorship'"
-                        [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">
-                        Currently Closed for mentorship</option>
-                </select>
-            </div>
+                    <!-- <div class="form-group"> -->
+                    <label for="languages">Languages</label>
+                    <input type="text" id="languages" class="form-control" formControlName="languages" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('description.languages').touched && !profileForm.get('description.languages').valid">Languages
+                        are required!</small>
+                    <!-- </div> -->
 
-        </div>
+                    <!-- <div class="form-group"> -->
+                    <label for="interests">Interests</label>
+                    <input type="text" id="interests" class="form-control" formControlName="interests" required />
+                    <small class="text-sm text-danger"
+                        *ngIf="profileForm.get('description.interests').touched && !profileForm.get('description.interests').valid">Interests
+                        are required!</small>
+                </div>
+                <!-- </div> -->
 
-        <div formGroupName="contact">
+                <div class="form-group" formArrayName="education">
+                    <label>Education</label>
+                    <div *ngFor="let educ of education.controls; let i=index">
+                        <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                        <div class="mt-2">
+                            <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2"
+                                (click)="addEducation()">Add Education</button>
+                            <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                                (click)="deleteEducation(i)">X</button>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" class="form-control" formControlName="email" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('contact.email').touched && !profileForm.get('contact.email').valid">Email is
-                    required!</small>
-            </div>
+                <div class="form-group" formArrayName="experience">
+                    <label>Work experience</label>
+                    <div *ngFor="let exp of experience.controls; let i=index">
+                        <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                        <div class="mt-2">
+                            <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2"
+                                (click)="addExperience()">Add experience</button>
+                            <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                                (click)="deleteExperience(i)">X</button>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" class="form-control" formControlName="city" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('contact.city').touched && !profileForm.get('contact.city').valid">City is
-                    required!</small>
-            </div>
-
-            <div class="form-group">
-                <label for="links">Links</label>
-                <input type="text" id="links" class="form-control" formControlName="links" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('contact.links').touched && !profileForm.get('contact.links').valid">Link is
-                    required!</small>
-            </div>
-
-        </div>
-
-        <div formGroupName="description">
-            <div class="form-group">
-                <label for="about">About me</label>
-                <textarea rows="3" placeholder="Write something about you..." id="about" class="form-control"
-                    formControlName="about"></textarea>
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('description.about').touched && !profileForm.get('description.about').valid">About
-                    me is required!</small>
-            </div>
-
-            <div class="form-group">
-                <label for="techSkills">Tech Skills</label>
-                <input type="text" id="techSkills" class="form-control" formControlName="techSkills" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('description.techSkills').touched && !profileForm.get('description.techSkills').valid">Tech
-                    skills are required!</small>
-            </div>
-
-            <div class="form-group">
-                <label for="softSkills">Soft Skills</label>
-                <input type="text" id="softSkills" class="form-control" formControlName="softSkills" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('description.softSkills').touched && !profileForm.get('description.softSkills').valid">Soft
-                    skills are required!</small>
-            </div>
-
-            <div class="form-group">
-                <label for="languages">Languages</label>
-                <input type="text" id="languages" class="form-control" formControlName="languages" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('description.languages').touched && !profileForm.get('description.languages').valid">Languages
-                    are required!</small>
-            </div>
-
-            <div class="form-group">
-                <label for="interests">Interests</label>
-                <input type="text" id="interests" class="form-control" formControlName="interests" required />
-                <small class="text-sm text-danger"
-                    *ngIf="profileForm.get('description.interests').touched && !profileForm.get('description.interests').valid">Interests
-                    are required!</small>
-            </div>
-        </div>
-
-        <div formArrayName="education">
-            <label>Education</label>
-            <div *ngFor="let educ of education.controls; let i=index">
-                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
-                <div class="mt-2">
-                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addEducation()">Add
-                        Education</button>
-                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
-                        (click)="deleteEducation(i)">X</button>
+                <div class="form-group" formArrayName="projects">
+                    <label>Projects</label>
+                    <div *ngFor="let project of projects.controls; let i=index">
+                        <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
+                        <div class="mt-2">
+                            <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2"
+                                (click)="addProject()">Add
+                                project</button>
+                            <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
+                                (click)="deleteProject(i)">X</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div formArrayName="experience">
-            <label>Work experience</label>
-            <div *ngFor="let exp of experience.controls; let i=index">
-                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
-                <div class="mt-2">
-                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addExperience()">Add
-                        experience</button>
-                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
-                        (click)="deleteExperience(i)">X</button>
-                </div>
-            </div>
         </div>
-
-        <div formArrayName="projects">
-            <label>Projects</label>
-            <div *ngFor="let project of projects.controls; let i=index">
-                <textarea class="form-control" rows="3" [formControlName]="i"></textarea>
-                <div class="mt-2">
-                    <button *ngIf="i<1" type="button" class="btn btn-secondary mr-2 mb-2" (click)="addProject()">Add
-                        project</button>
-                    <button *ngIf="i>0" type="button" class="btn btn-secondary mb-2"
-                        (click)="deleteProject(i)">X</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-around mb-3 mt-5">
-            <button class="btn btn-outline-primary" type="submit" [disabled]="!profileForm.valid">Confirm</button>
+        <div class="d-flex justify-content-center mb-3 mt-5 row">
+            <button class="btn btn-outline-primary mr-5" type="submit" [disabled]="!profileForm.valid">Confirm</button>
             <button class="btn btn-outline-danger" type="button" (click)="cancel()">Cancel</button>
         </div>
-
     </form>
 </div>

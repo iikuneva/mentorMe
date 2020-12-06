@@ -35,7 +35,7 @@
             </tbody>
         </table>
     </div>
-    <div class="flex-grow-1 mt-5" *ngIf="!mentorshipProfiles || mentorshipProfiles?.length === 0">
+    <div class="flex-grow-1 mt-5" *ngIf="!loggedUserProfile || !mentorshipProfiles || mentorshipProfiles?.length === 0">
         <h4>There is no mentorship yet...</h4>
     </div>
 </div>

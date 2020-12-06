@@ -17,11 +17,13 @@ export class ProfileComponent implements OnInit {
   faEmail = faEnvelope;
   faLink = faLink;
   loggedUser: ILoggedUser;
-  loggedUserRole: string;
+  loggedUserProfile: any;
+  loggedUserRole: string = null;
   isOwner: boolean = false;
   isEditMode: boolean = true;
   idMentee: string = null;
   isAlreadyInMentorship: boolean = false;
+  hasLoggedUserProfile: boolean = false;
 
   constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) {
   }
@@ -30,7 +32,12 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profile = this.dataStorageService.getUserProfile();
       this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);
-      this.loggedUserRole = this.dataStorageService.getLoggedUserProfile().getValue().role;
+
+      this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
+      if (this.loggedUserProfile) {
+        this.loggedUserRole = this.loggedUserProfile.role;
+      }
+      this.hasLoggedUserProfile = !!this.loggedUserProfile;
 
       if (this.profile.userEmail === this.loggedUser.email) {
         this.isOwner = true;

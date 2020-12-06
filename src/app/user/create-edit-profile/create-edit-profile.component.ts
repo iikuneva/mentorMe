@@ -23,9 +23,11 @@ export class CreateEditProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private createEditProfileService: CreateEditProfileService, private route: ActivatedRoute, private router: Router, private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
+   
     this.route.queryParams.subscribe(params => this.isEditMode = !!params.edit);
 
     if (this.isEditMode) {
+     
       this.profileId = this.route.snapshot.params.id;
       this.profile = this.dataStorageService.getUserProfile();
       this.selectedOptionRole = this.profile.main.role;
@@ -53,53 +55,27 @@ export class CreateEditProfileComponent implements OnInit {
         interests: [this.isEditMode ? this.profile.description.interests : null, Validators.required],
       }),
       userEmail: this.dataStorageService.getUser().getValue().email,
-      education: this.fb.array([
+      education: this.isEditMode ? this.fillFormArray(this.profile.education) : this.fb.array([
         this.fb.control('')
       ]),
-      experience: this.fb.array([
+      experience: this.isEditMode ? this.fillFormArray(this.profile.experience) : this.fb.array([
         this.fb.control('')
       ]),
-      projects: this.fb.array([
+      projects: this.isEditMode ? this.fillFormArray(this.profile.projects) : this.fb.array([
         this.fb.control('')
       ]),
     });
 
-    // if (this.isEditMode) {
-    // this.profiles = this.dataStorageService.getAllProfiles();
-    // this.route.params.subscribe((params: Params) => {
-    //   this.profile = this.dataStorageService.getProfileById(params.id);
-    // this.profileSubscription = this.profile.subscribe((profile) => {
-    // this.profile = this.dataStorageService.getProfileById(this.profileId);
+  }
 
-    // this.profileId = this.route.snapshot.params.id;
-    // this.profile = this.dataStorageService.getProfileById(this.profileId);
-    // this.profileForm.setValue = ({
-    //   main: {
-    //     name: this.profile.main.name,
-    //     image: this.profile.main.image,
-    //     role: this.profile.main.role,
-    //     position: this.profile.main.position,
-    //     slogan: this.profile.main.slogan,
-    //     status: this.profile.main.status
-    //   },
-    //   'contact': {
-    //     'email': this.profile.contact.email,
-    //     'city': this.profile.contact.city,
-    //     'links': this.profile.contact.links,
-    //   },
-    //   'description': {
-    //     'about': this.profile.description.about,
-    //     'techSkills': this.profile.description.techSkills,
-    //     'softSkills': this.profile.description.softSkills,
-    //     'languages': this.profile.description.languages,
-    //     'interests': this.profile.description.interests,
-    //   },
-    //   'education': this.profile.education,
-    //   'experience': this.profile.experience,
-    //   'projects': this.profile.projects,
-    //   // this.profileId = profile.id;
-    // })
-    // }
+  fillFormArray(formArr: any[]) {
+    const arr = this.fb.array([]);
+    if(formArr.length > 0){
+      formArr.forEach(el => arr.push(this.fb.control(el)));
+    } else {
+      arr.push(this.fb.control(''));
+    }
+    return arr;
   }
 
   get education() {
