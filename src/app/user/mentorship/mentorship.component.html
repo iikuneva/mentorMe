@@ -1,38 +1,41 @@
-<div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0" class="container-page">
-    <h3>My mentorship list</h3>
-    <table class="table table-hover">
-        <thead>
-            <tr class="table-primary">
-                <th scope="col">Avatar</th>
-                <th scope="col">Name</th>
-                <th scope="col">Response</th>
-                <th *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'" scope="col" colspan="2">Send response</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-secondary" *ngFor="let profile of mentorshipProfiles">
-                <td>
-                    <a [routerLink]="['/profile', profile.profileId]">
-                        <div class="img-cropper">
-                        <img class="img-responsive profile-pic" style="max-width: 50px;" alt="Avatar"
-                            [src]="profile.main.image">
-                        </div>
-                    </a>
-                </td>
-                <th scope="row">{{profile.main.name}}</th>
-                <td><span
-                        [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'acepted' : 'rejected'"></span>
-                </td>
-                <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button #btnAccept type="button" class="btn btn-success"
-                        [disabled]="!!disableButton(profile).isAccepted || disableButtons"
-                        (click)="onAccept(profile)">Accept</button></td>
-                <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button #btnReject type="button" class="btn btn-danger"
-                        [disabled]="!!disableButton(profile).isAccepted || disableButtons"
-                        (click)="onReject(profile)">Reject</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div *ngIf="!mentorshipProfiles || mentorshipProfiles?.length === 0">
-    <h4>There is no mentorship yet...</h4>
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0" class="flex-grow-1">
+        <h3>My mentorship list</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Response</th>
+                    <th *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'" scope="col" colspan="2">Send response
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-secondary" *ngFor="let profile of mentorshipProfiles">
+                    <td>
+                        <a [routerLink]="['/profile', profile.profileId]">
+                            <div class="img-cropper">
+                                <img class="img-responsive profile-pic" style="max-width: 50px;" alt="Avatar"
+                                    [src]="profile.main.image">
+                            </div>
+                        </a>
+                    </td>
+                    <th scope="row">{{profile.main.name}}</th>
+                    <td><span
+                            [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'acepted' : 'rejected'"></span>
+                    </td>
+                    <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button #btnAccept type="button"
+                            class="btn btn-success" [disabled]="!!disableButton(profile).isAccepted || disableButtons"
+                            (click)="onAccept(profile)">Accept</button></td>
+                    <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button #btnReject type="button"
+                            class="btn btn-danger" [disabled]="!!disableButton(profile).isAccepted || disableButtons"
+                            (click)="onReject(profile)">Reject</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex-grow-1 mt-5" *ngIf="!mentorshipProfiles || mentorshipProfiles?.length === 0">
+        <h4>There is no mentorship yet...</h4>
+    </div>
 </div>

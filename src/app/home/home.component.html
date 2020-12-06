@@ -1,5 +1,5 @@
-<div class="container page-container">
-    <div class="jumbotron">
+<div class="container">
+    <div class="jumbotron mt-5">
 
         <h2 class="display-3">Mentor ME!</h2>
         <h5>Key Benefits for <strong>Mentor</strong></h5>
@@ -26,23 +26,21 @@
             </p>
         </div>
     </div>
-    <!-- <div class="card-deck d-flex flex-row justify-content-center mt-5"> -->
-    <div class="row">
-        <div class="col-sm-12 col-lg-6">
-            <div class="card" *ngFor="let profile of profiles">
-                <div class="row no-gutters">
-                    <div class="col-sm-5">
-                        <img class="card-img-top h-100" [src]="profile.main.image" alt="Card image cap">
+    <div class="card-deck d-flex flex-row justify-content-between mt-5">
+        <div *ngFor="let profile of profiles" class="col-sm-12 col-lg-6 mb-5">
+            <div class="card d-flex flex-row no-gutters shadow-lg border-0" style="height: 200px;">
+                <div class="col-5 overflow-hidden w-100">
+                    <img class="img-responsive h-100" [src]="profile.main.image" alt="Card image cap">
+                </div>
+                <div class="col-7 card-body d-flex flex-column justify-content-between ml-5">
+                    <div>
+                        <h5 class="card-title">{{profile.main.name}}</h5>
+                        <h6 class="card-subtitle text-muted">{{profile.main.position}}</h6>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="card-body">
-                            <h5 class="card-title">{{profile.main.name}}</h5>
-                            <h6 class="card-subtitle text-muted">{{profile.main.position}}</h6>
-                            <a *ngIf="user" [routerLink]="['/profile', profile.id]"
-                                class="btn btn-dark w-50">Details</a>
-                            <p *ngIf="!user" class="card-text mt-3">
-                                <a [routerLink]="['/login']" role="button">Login</a> to view Details</p>
-                        </div>
+                    <div>
+                        <a *ngIf="user" [routerLink]="['/profile', profile.id]" class="btn btn-dark w-50">Details</a>
+                        <p *ngIf="!user" class="card-text mt-3">
+                            <a [routerLink]="['/login']" role="button">Login</a> to view Details</p>
                     </div>
                 </div>
             </div>
