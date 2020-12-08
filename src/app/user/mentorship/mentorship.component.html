@@ -1,4 +1,7 @@
-<div class="container-fluid d-flex flex-column min-vh-100">
+<div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
+    <app-loader></app-loader>
+</div>
+<div *ngIf="!isLoading" class="container-fluid d-flex flex-column min-vh-100">
     <div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0" class="flex-grow-1">
         <h3>My mentorship list</h3>
         <table class="table table-hover">
@@ -7,7 +10,8 @@
                     <th scope="col">Avatar</th>
                     <th scope="col">Name</th>
                     <th scope="col">Response</th>
-                    <th *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'" scope="col" colspan="2">Send response
+                    <th *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'" scope="col" colspan="2">Send
+                        response
                     </th>
                 </tr>
             </thead>

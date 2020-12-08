@@ -11,7 +11,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   @ViewChild('f') form: NgForm;
   passMatch = false;
-
   constructor(private authService: AuthService) { }
 
   ngOnInit() { }

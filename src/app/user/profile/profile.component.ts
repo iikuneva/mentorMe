@@ -24,11 +24,14 @@ export class ProfileComponent implements OnInit {
   idMentee: string = null;
   isAlreadyInMentorship: boolean = false;
   hasLoggedUserProfile: boolean = false;
+  isLoading: boolean;
 
-  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    this.dataStorageService.isLoading.subscribe(data => {
+      this.isLoading = data
+    });
     this.route.params.subscribe((params: Params) => {
       this.profile = this.dataStorageService.getUserProfile();
       this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);

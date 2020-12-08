@@ -1,4 +1,7 @@
-<div class="container">
+<div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
+    <app-loader></app-loader>
+</div>
+<div *ngIf="!isLoading" class="container">
     <div class="row mt-5">
         <div class="col-sm-5">
             <div class="img-cropper">

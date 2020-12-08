@@ -9,7 +9,6 @@ import { AuthService } from '../auth-service.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -20,6 +19,7 @@ export class LoginComponent implements OnInit {
       email: formData.email,
       password: formData.password
     };
+    // this.isLoading = true;
     this.authService.loginUser(userForm);
   }
 

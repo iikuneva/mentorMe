@@ -10,10 +10,12 @@ import { Mentorship } from '../profile.model';
 })
 export class MentorshipService {
   mentorshipProfiles: any = null;
+  isLoading = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 
   fetchMentorshipProfiles(profileId: string) {
+    this.isLoading.next(true);
     return this.http.get(environment.dbUrl + 'profile/' + profileId + '/mentorship.json').pipe(
       map(entries => {
         const data = [];
@@ -34,7 +36,8 @@ export class MentorshipService {
         }
         return data;
       }),
-      toArray()
+      toArray(),
+      tap(data => this.isLoading.next(false))
     )
   }
 

@@ -1,4 +1,4 @@
-import { Component,  OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MentorshipService } from './mentorship.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Mentorship } from '../profile.model';
@@ -13,15 +13,19 @@ export class MentorshipComponent implements OnInit {
   mentorshipProfiles: any;
   mentorshipId: string;
   disableButtons: boolean = false;
+  isLoading: boolean;
 
   constructor(public mentorshipService: MentorshipService, private dataStorageService: DataStorageService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
+    this.mentorshipService.isLoading.subscribe(data => {
+      this.isLoading = data
+    });
     this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
-    if(this.loggedUserProfile?.profileId){
-        this.mentorshipService.fetchMentorshipProfiles(this.loggedUserProfile.profileId).subscribe(
-          profiles => this.mentorshipProfiles = profiles
-            );
+    if (this.loggedUserProfile?.profileId) {
+      this.mentorshipService.fetchMentorshipProfiles(this.loggedUserProfile.profileId).subscribe(
+        profiles => this.mentorshipProfiles = profiles
+      );
     }
   }
 
@@ -44,5 +48,5 @@ export class MentorshipComponent implements OnInit {
     }
     return obj;
   }
-  
+
 }

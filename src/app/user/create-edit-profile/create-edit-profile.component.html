@@ -1,3 +1,6 @@
+<!-- <div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div> -->
 <div>
     <form class="container-fluid justify-content-center mt-5" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="border-bottom mb-3 row justify-content-center">
@@ -16,17 +19,13 @@
                             required!</small>
                     </span>
 
-
-                    <!-- <div class="form-group"> -->
                     <label for="image">Image URL</label>
                     <input type="text" id="image" class="form-control" formControlName="image" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('main.image').touched && !profileForm.get('main.image').valid">Image URL
                         is
                         required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="role">Role</label>
                     <select class="form-control" id="role" formControlName="role">
                         <option [attr.value]="'mentor'"
@@ -41,26 +40,20 @@
                             is
                             required!</small>
                     </span>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="position">Position</label>
                     <input type="text" id="position" class="form-control" formControlName="position" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('main.position').touched && !profileForm.get('main.position').valid">Position
                         is required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="slogan">Slogan</label>
                     <textarea rows="2" id="slogan" class="form-control" formControlName="slogan" required></textarea>
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('main.slogan').touched && !profileForm.get('main.slogan').valid">Slogan
                         is
                         required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="status">Status</label>
                     <select class="form-control" id="status" formControlName="status">
                         <option [attr.value]="'Currently Open for mentorship'"
@@ -70,10 +63,7 @@
                             [attr.selected]="'Currently Closed for mentorship' === selectedOptionStatus ? 'true' : null">
                             Currently Closed for mentorship</option>
                     </select>
-                    <!-- </div> -->
                 </div>
-
-                <!-- <div > -->
 
                 <div class="form-group" formGroupName="contact">
                     <label for="email">Email</label>
@@ -82,18 +72,14 @@
                         *ngIf="profileForm.get('contact.email').touched && !profileForm.get('contact.email').valid">Email
                         is
                         required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="city">City</label>
                     <input type="text" id="city" class="form-control" formControlName="city" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('contact.city').touched && !profileForm.get('contact.city').valid">City
                         is
                         required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="links">Links</label>
                     <input type="text" id="links" class="form-control" formControlName="links" required />
                     <small class="text-sm text-danger"
@@ -102,10 +88,8 @@
                         required!</small>
                 </div>
 
-                <!-- </div> -->
             </div>
             <div class="col-md-12 col-lg-6">
-                <!-- <div > -->
                 <div class="form-group" formGroupName="description">
                     <label for="about">About me</label>
                     <textarea rows="3" placeholder="Write something about you..." id="about" class="form-control"
@@ -113,40 +97,31 @@
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('description.about').touched && !profileForm.get('description.about').valid">About
                         me is required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="techSkills">Tech Skills</label>
                     <input type="text" id="techSkills" class="form-control" formControlName="techSkills" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('description.techSkills').touched && !profileForm.get('description.techSkills').valid">Tech
                         skills are required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="softSkills">Soft Skills</label>
                     <input type="text" id="softSkills" class="form-control" formControlName="softSkills" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('description.softSkills').touched && !profileForm.get('description.softSkills').valid">Soft
                         skills are required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="languages">Languages</label>
                     <input type="text" id="languages" class="form-control" formControlName="languages" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('description.languages').touched && !profileForm.get('description.languages').valid">Languages
                         are required!</small>
-                    <!-- </div> -->
 
-                    <!-- <div class="form-group"> -->
                     <label for="interests">Interests</label>
                     <input type="text" id="interests" class="form-control" formControlName="interests" required />
                     <small class="text-sm text-danger"
                         *ngIf="profileForm.get('description.interests').touched && !profileForm.get('description.interests').valid">Interests
                         are required!</small>
                 </div>
-                <!-- </div> -->
 
                 <div class="form-group" formArrayName="education">
                     <label>Education</label>
