@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth-service.service'
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { AuthService } from '../auth-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +13,13 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   @ViewChild('f') form: NgForm;
   passMatch = false;
-  constructor(private authService: AuthService) { }
+  errorMessage: string;
+
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private router: Router) { }
 
   ngOnInit() { }
 
   ngAfterViewInit(): void {
-    // this.form.valueChanges.subscribe(console.log)
-
     this.form.valueChanges.subscribe(f => {
       if (!f.pass) {
         this.passMatch = false;
@@ -29,13 +31,23 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     })
 
   }
-  // ngSubmit(){}
 
   registerHandler() {
     const userForm = {
       email: this.form.value.email,
       password: this.form.value.pass.password
     };
-    this.authService.registerUser(userForm);
+    this.authService.registerUser(userForm).subscribe(
+      {
+        next: (newUser) => {
+          this.dataStorageService.setUser(newUser)
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          this.errorMessage = error.error.error.message;
+        }
+      }
+    );
+
   }
 }

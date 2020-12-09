@@ -19,6 +19,7 @@ export class CreateEditProfileComponent implements OnInit {
   profileId: string;
   profiles: IProfile[];
   profile: IProfile;
+ errorMessage: string;
 
   constructor(private fb: FormBuilder, private createEditProfileService: CreateEditProfileService, private route: ActivatedRoute, private router: Router, private dataStorageService: DataStorageService) { }
 
