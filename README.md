@@ -1,27 +1,26 @@
-# Mentorme
+MentorME APP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+Idea
 
-## Development server
+MentorME app connects people who want to learn and share knowledges and experience.
+If you are registered user you will be able to create your own profile like CV, where you must choose a role -  mentor or mentee.
+If your role is a mentee you can choose your mentor and send him/her an invitation.
+In case you are the mentor - you can accept or reject the invitation.
+Both mentor and mentee could follow their connections in mentorship page.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Purpose
+ 
+This is an author's project from Angular course, organized by Softuni - https://softuni.bg/trainings/3249/angular-november-2020
 
-## Code scaffolding
+Main technologies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+• Front-end – Angular, Typescript, Bootstrap, CSS, HTML
+• Back-end – Firebase (REST API) - cloud backend platform 
 
-## Build
+Starting the project
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+npm install
+ng serve
+The project should be up and running at http://localhost:4200/
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Please note that bootstrap theme should be downloaded from https://bootswatch.com/cerulean/ and replace with node_modules/bootstrap/dist/css/bootstrap.min.css.
