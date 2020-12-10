@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit {
-
+  isClicked: boolean;
   @Input() message: string;
   
   constructor() { }
@@ -14,7 +14,8 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {}
 
   onClose(): void {
-    // errorDiv.style.display = 'none';
+    this.isClicked = !this.isClicked;
   }
+
 
 }

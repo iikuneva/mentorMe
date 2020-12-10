@@ -20,8 +20,12 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: '**',
+    path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found'
   }
 ];
 
