@@ -1,12 +1,10 @@
-<app-header></app-header>
-<div class="container">
-  <!-- <div class="row"> -->
-    <div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
-      <app-loader></app-loader>
-    </div>
-    <div *ngIf="!isLoading">
-      <router-outlet></router-outlet>
-    </div>
-  <!-- </div> -->
+<div class="container-fluid d-flex flex-column justify-content-center min-vh-100 p-0">
+  <app-header></app-header>
+  <div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="!isLoading" class="flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>

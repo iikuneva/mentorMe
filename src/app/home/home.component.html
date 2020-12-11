@@ -1,23 +1,30 @@
-<div class="container">
-    <div class="jumbotron mt-5">
-        <h2 class="display-3">Mentor ME!</h2>
-        <h5>Key Benefits for <strong>Mentor</strong></h5>
-        <ul>
-            <li>Exposure to fresh perspectives, ideas and approaches</li>
-            <li>Development of personal leadership and coaching styles</li>
-            <li>Recognition as a subject matter expert and leader.</li>
-            <li>Extension of their professional development record.</li>
-            <li>Opportunity to reflect on their own goals and practices.</li>
-        </ul>
-        <h5>Key Benefits for <strong>Mentee</strong></h5>
-        <ul>
-            <li>Exposure to new ideas and ways of thinking</li>
-            <li>Advice on developing strengths and overcoming weaknesses</li>
-            <li>Guidance on their professional development and advancement</li>
-            <li>Increased visibility and recognition within the company</li>
-            <li>The opportunity to develop new skills and knowledge</li>
-        </ul>
-        <div *ngIf="!user">
+<div class="container-fluid d-flex flex-column justify-content-center min-vh-100 p-0">
+    <div class="imageContainer flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <h2 class="display-3 mb-5 text-white">Mentor ME!</h2>
+        <div class="row">
+            <div class="col-6 text-white">
+                <h5>Key Benefits for <strong>Mentor</strong></h5>
+                <ul class="p-0">
+                    <li>Exposure to fresh perspectives, ideas and approaches</li>
+                    <li>Development of personal leadership and coaching styles</li>
+                    <li>Recognition as a subject matter expert and leader.</li>
+                    <li>Extension of their professional development record.</li>
+                    <li>Opportunity to reflect on their own goals and practices.</li>
+                </ul>
+            </div>
+            <div class="col-6 text-white">
+                <h5>Key Benefits for <strong>Mentee</strong></h5>
+                <ul class="p-0">
+                    <li>Exposure to new ideas and ways of thinking</li>
+                    <li>Advice on developing strengths and overcoming weaknesses</li>
+                    <li>Guidance on their professional development and advancement</li>
+                    <li>Increased visibility and recognition within the company</li>
+                    <li>The opportunity to develop new skills and knowledge</li>
+                </ul>
+            </div>
+        </div>
+
+        <div *ngIf="!user" class="row-12 text-white d-flex flex-column justify-content-center align-items-center">
             <hr class="my-4">
             <p>If you want to be a mentor or mentee - register, create a profile and enjoy the jurney!</p>
             <p class="lead">
@@ -25,6 +32,8 @@
             </p>
         </div>
     </div>
+</div>
+<div class="container">
     <div class="card-deck d-flex flex-row justify-content-between mt-5">
         <div *ngFor="let profile of profiles" class="col-sm-12 col-lg-6 mb-5">
             <div class="card d-flex flex-row no-gutters shadow-lg border-0" style="height: 200px;">

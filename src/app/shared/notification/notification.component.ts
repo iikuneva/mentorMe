@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit, OnDestroy {
+export class NotificationComponent implements OnInit {
   
   hideError: boolean = false;
 
@@ -13,20 +13,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
   
   constructor() { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  onClose(): void {
-    this.hideError = true;
-    console.log("from onCloseBtn " + this.hideError )
-
-  }
-
- ngOnDestroy(): void {
-    this.hideError = false;
-    console.log("from destroy " + this.hideError )
-  }
-
+  // onClose(): void {
+  //   this.hideError = true;
+  // }
 
 }

@@ -1,11 +1,7 @@
-<div *ngIf="!hideError">
-<!-- <div [ngStyle]="{display: isClicked ? 'none' : 'block'}" class="alert alert-dismissible alert-danger mt-3"> -->
-    <div class="alert alert-dismissible alert-danger mt-3">
-    <button type="button" class="close" data-dismiss="alert" (click)="onClose()">&times;</button>
-    <p>{{ message }}</p>
+<div class="alert alert-dismissible alert-danger mt-3 col-xs-12 col-md-6">
+    <p class="text-center">{{ message }}</p>
 </div>
 
-<!-- <div ng-style="myStyle" class="alert alert-dismissible alert-danger mt-3">
-    <button type="button" class="close" data-dismiss="alert" ng-click="myStyle={display:'none'}" >&times;</button>
-    <p>{{ message }}</p>
-</div> -->
+<!-- <div *ngIf="!hideError"> -->
+<!-- <div [ngStyle]="{display: isClicked ? 'none' : 'block'}" class="alert alert-dismissible alert-danger mt-3"> -->
+<!-- <button type="button" class="close" data-dismiss="alert" (click)="onClose()">&times;</button> -->
