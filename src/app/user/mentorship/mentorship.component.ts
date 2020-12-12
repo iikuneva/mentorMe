@@ -1,7 +1,8 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { MentorshipService } from './mentorship.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Mentorship } from '../profile.model';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-mentorship',
@@ -15,7 +16,7 @@ export class MentorshipComponent implements OnInit {
   disableButtons: boolean = false;
   isLoading: boolean;
 
-  constructor(public mentorshipService: MentorshipService, private dataStorageService: DataStorageService, private renderer: Renderer2) { }
+  constructor(public mentorshipService: MentorshipService, private dataStorageService: DataStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.mentorshipService.isLoading.subscribe(data => {
@@ -32,10 +33,13 @@ export class MentorshipComponent implements OnInit {
   onAccept(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
     this.disableButtons = true;
+    // this.router.navigate([`/mentorship`]);
+  
   }
   onReject(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
     this.disableButtons = true;
+    // this.router.navigate([`/mentorship`]);
   }
 
   disableButton(profile: any): Mentorship {

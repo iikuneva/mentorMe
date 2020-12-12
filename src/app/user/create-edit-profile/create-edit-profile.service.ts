@@ -30,7 +30,7 @@ export class CreateEditProfileService {
   }
 
   editProfile(id: string, editProfile: IProfile) {
-    this.http.put(environment.dbUrl + 'profile/' + id + '.json', editProfile).subscribe(
+    this.http.patch(environment.dbUrl + 'profile/' + id + '.json', editProfile).subscribe(
       {
         next: (data) => {
           this.router.navigate([`/profile/${id}`]);

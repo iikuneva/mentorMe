@@ -26,8 +26,9 @@
                         </a>
                     </td>
                     <th scope="row">{{profile.main.name}}</th>
-                    <td><span
-                            [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'acepted' : 'rejected'"></span>
+                    <td>
+                        <span 
+                            [textContent]="disableButton(profile).isAccepted === undefined ? 'pending' : disableButton(profile).isAccepted ? 'accepted' : 'rejected'"></span>
                     </td>
                     <td *ngIf="(loggedUserProfile.role | lowercase) === 'mentor'"><button #btnAccept type="button"
                             class="btn btn-success" [disabled]="!!disableButton(profile).isAccepted || disableButtons"

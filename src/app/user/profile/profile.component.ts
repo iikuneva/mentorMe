@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from '../../shared/data-storage.service';
 import IProfile from '../profile.model';
 import { faMapMarkerAlt, faEnvelope, faLink } from '@fortawesome/free-solid-svg-icons';
 import { ILoggedUser } from '../auth/auth.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ILoggedUser } from '../auth/auth.model';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   profile: IProfile;
   faLocation = faMapMarkerAlt;
   faEmail = faEnvelope;
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
   isAlreadyInMentorship: boolean = false;
   hasLoggedUserProfile: boolean = false;
   isLoading: boolean;
+  userSubscription: Subscription;
+  isOpen: boolean;
 
   constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) { }
 
@@ -32,31 +35,38 @@ export class ProfileComponent implements OnInit {
     this.dataStorageService.isLoading.subscribe(data => {
       this.isLoading = data
     });
-    this.route.params.subscribe((params: Params) => {
-      this.profile = this.dataStorageService.getUserProfile();
-      this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);
 
-      this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
-
-      if(this.loggedUserProfile?.profileId){
-        this.hasLoggedUserProfile = true;
-      }else{
-        this.hasLoggedUserProfile = false;
-      }
-
-
-      if (this.loggedUserProfile?.role) {
-        this.loggedUserRole = this.loggedUserProfile.role;
-      }
-
-      if (this.profile.userEmail === this.loggedUser.email) {
-        this.isOwner = true;
-      }
-
-      if (this.profile.mentorship && this.hasLoggedUserProfile) {
-        this.isAlreadyInMentorship = !!Object.values(this.profile.mentorship).find((obj) => obj.profileId === this.dataStorageService.getLoggedUserProfile().getValue().profileId)
-      }
+    this.userSubscription = this.dataStorageService.getLoggedUserProfile().subscribe(user => {
+      this.loggedUserProfile = user
     });
+
+
+    this.profile = this.dataStorageService.getUserProfile();
+
+    this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);
+
+    if (this.loggedUserProfile?.profileId) {
+      this.hasLoggedUserProfile = true;
+    } else {
+      this.hasLoggedUserProfile = false;
+    }
+
+
+    if (this.loggedUserProfile?.role) {
+      this.loggedUserRole = this.loggedUserProfile.role;
+    }
+
+    if (this.profile.userEmail === this.loggedUser.email) {
+      this.isOwner = true;
+    }
+
+    if (this.profile.mentorship && this.hasLoggedUserProfile) {
+      this.isAlreadyInMentorship = !!Object.values(this.profile.mentorship).find((obj) => obj.profileId === this.dataStorageService.getLoggedUserProfile().getValue().profileId)
+    }
+
+    if (this.profile.main.status === 'Currently Open for mentorship') {
+      this.isOpen = true;
+    }
   }
 
   onEditProfile(): void {
@@ -65,9 +75,12 @@ export class ProfileComponent implements OnInit {
 
   onMentorMe(event): void {
     const idMentor = this.profile.id;
-    this.dataStorageService.getLoggedUserProfile().subscribe(id => this.idMentee = id.profileId);
-    this.dataStorageService.addToMentorshipArray(this.idMentee, idMentor);
+    this.dataStorageService.addToMentorshipArray(this.loggedUserProfile.profileId, idMentor);
     event.target.disabled = true;
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
 }

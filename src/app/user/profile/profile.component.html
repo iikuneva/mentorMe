@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-4">
             <div
-                *ngIf="(profile?.main.role | lowercase) === 'mentor' && !isOwner && !isAlreadyInMentorship && (loggedUserRole | lowercase) !== 'mentor' && hasLoggedUserProfile">
+                *ngIf="isOpen && (profile?.main.role | lowercase) === 'mentor' && !isOwner && !isAlreadyInMentorship && (loggedUserRole | lowercase) !== 'mentor' && hasLoggedUserProfile">
                 <button type="button" class="btn btn-primary" (click)="onMentorMe($event)">Mentor Me</button>
             </div>
             <p><strong>{{profile.main.role}}</strong></p>
