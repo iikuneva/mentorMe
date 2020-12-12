@@ -2,7 +2,6 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {DataStorageService} from '../../shared/data-storage.service';
-// import IProfile from '../user/profile.model';
 
 
 @Injectable({providedIn: "root"})

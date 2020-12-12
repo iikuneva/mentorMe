@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MentorshipService } from './mentorship.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Mentorship } from '../profile.model';
@@ -29,11 +29,9 @@ export class MentorshipComponent implements OnInit {
 
   onAccept(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, true, profile);
-    // this.dataStorageService.fetchMentorshipProfiles();
   }
   onReject(profile: any) {
     this.mentorshipService.acceptRejectMentorship(this.loggedUserProfile.profileId, false, profile);
-    // this.dataStorageService.fetchMentorshipProfiles();
   }
 
   disableButton(profile: any): boolean {

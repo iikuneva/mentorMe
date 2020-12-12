@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Data } from '@angular/router';
 import { DataStorageService } from './shared/data-storage.service';
 import { AuthService } from './user/auth/auth-service.service';
 

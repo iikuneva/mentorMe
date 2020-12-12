@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, mergeMap, toArray } from 'rxjs/operators';
-import { Observable, BehaviorSubject, ObservableInput, Subject, from } from 'rxjs';
+import { map, tap, mergeMap, toArray } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, from, Subscription } from 'rxjs';
 import IProfile from '../user/profile.model';
 import { ILoggedUser } from '../user/auth/auth.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -20,7 +20,6 @@ export class DataStorageService {
   mentorshipProfiles: any;
 
   constructor(private http: HttpClient) { }
-
 
   fetchAllProfiles(): Observable<IProfile[]> {
     this.isLoading.next(true);
@@ -99,6 +98,9 @@ export class DataStorageService {
   }
 
   fetchMentorshipProfiles() {
+    if(this.loggedUserProfile.getValue() === null){
+      return;
+    }
     const profileId = this.loggedUserProfile.getValue().profileId;
     this.isLoading.next(true);
     return this.http.get(environment.dbUrl + 'profile/' + profileId + '/mentorship.json').pipe(
