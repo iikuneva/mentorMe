@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, BehaviorSubject, ObservableInput, Subject } from 'rxjs';
+import { catchError, map, tap, mergeMap, toArray } from 'rxjs/operators';
+import { Observable, BehaviorSubject, ObservableInput, Subject, from } from 'rxjs';
 import IProfile from '../user/profile.model';
 import { ILoggedUser } from '../user/auth/auth.model';
 import { HttpClient } from '@angular/common/http';
@@ -17,9 +17,9 @@ export class DataStorageService {
   userProfile: IProfile = null;
   profiles: IProfile[] = [];
   isLoading = new Subject<boolean>();
+  mentorshipProfiles: any;
 
   constructor(private http: HttpClient) { }
-
 
 
   fetchAllProfiles(): Observable<IProfile[]> {
@@ -74,7 +74,6 @@ export class DataStorageService {
   }
 
 
-
   fetchProfileById(id: string): Observable<IProfile> {
     this.isLoading.next(true);
     return this.http.get<IProfile>(environment.dbUrl + 'profile/' + id + '.json').pipe(
@@ -85,7 +84,7 @@ export class DataStorageService {
         }
       }),
       tap(profile => {
-        this.userProfile = profile; 
+        this.userProfile = profile;
         this.isLoading.next(false);
       }));
   }
@@ -99,5 +98,33 @@ export class DataStorageService {
     this.http.post(environment.dbUrl + 'profile/' + idMentee + '/mentorship' + '.json', { profileId: idMentor }).subscribe()
   }
 
+  fetchMentorshipProfiles() {
+    const profileId = this.loggedUserProfile.getValue().profileId;
+    this.isLoading.next(true);
+    return this.http.get(environment.dbUrl + 'profile/' + profileId + '/mentorship.json').pipe(
+      map(entries => {
+        const data = [];
+        if (entries) {
+          Object.entries(entries).forEach(([key, obj]) => {
+            data.push(Object.assign({ mentorshipId: key }, obj))
+          });
+        }
+        return data;
+      }),
+      mergeMap(data => {
+        if (data.length > 0) {
+          return from(data).pipe(
+            mergeMap(obj => this.http.get(environment.dbUrl + 'profile/' + obj.profileId + '.json').pipe(
+              map(data => Object.assign({ profileId: obj.profileId, mentorshipId: obj.mentorshipId }, data))
+            )),
+          )
+        }
+        return data;
+      }),
+      toArray(),
+      tap(data => this.isLoading.next(false)
+      )
+    ).subscribe(data => this.mentorshipProfiles = data)
+  }
 
 }

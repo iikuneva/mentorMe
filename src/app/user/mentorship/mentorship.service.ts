@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, Subject } from 'rxjs';
-import { map, mergeMap, switchMap, tap, toArray } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Mentorship } from '../profile.model';
+import {DataStorageService} from '../../shared/data-storage.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +14,7 @@ export class MentorshipService {
   mentorshipProfiles: any = null;
   isLoading = new Subject<boolean>();
 
-  constructor(private http: HttpClient) { }
-
-  fetchMentorshipProfiles(profileId: string) {
-    this.isLoading.next(true);
-    return this.http.get(environment.dbUrl + 'profile/' + profileId + '/mentorship.json').pipe(
-      map(entries => {
-        const data = [];
-        if (entries) {
-          Object.entries(entries).forEach(([key, obj]) => {
-            data.push(Object.assign({ mentorshipId: key }, obj))
-          });
-        }
-        return data;
-      }),
-      mergeMap(data => {
-        if (data.length > 0) {
-          return from(data).pipe(
-            mergeMap(obj => this.http.get(environment.dbUrl + 'profile/' + obj.profileId + '.json').pipe(
-              map(data => Object.assign({ profileId: obj.profileId, mentorshipId: obj.mentorshipId }, data))
-            )),
-          )
-        }
-        return data;
-      }),
-      toArray(),
-      tap(data => this.isLoading.next(false))
-    )
-  }
+  constructor(private http: HttpClient, private dataStorageService: DataStorageService, private router: Router) { }
 
   acceptRejectMentorship(loggedProfileID: string, isAccepted: boolean, lookedProfile: any) {
     let lookedProfileMentorshipID;
@@ -51,7 +26,9 @@ export class MentorshipService {
         break;
       }
     }
-    this.http.patch(environment.dbUrl + 'profile/' + loggedProfileID + '/mentorship/' + lookedProfile.mentorshipId + '.json', { isAccepted: isAccepted }).subscribe()
+    this.http.patch(environment.dbUrl + 'profile/' + loggedProfileID + '/mentorship/' + lookedProfile.mentorshipId + '.json', { isAccepted: isAccepted }).pipe(
+      tap(() => this.dataStorageService.fetchMentorshipProfiles())
+    ).subscribe();
     this.http.patch(environment.dbUrl + 'profile/' + lookedProfile.profileId + '/mentorship/' + lookedProfileMentorshipID + '.json', { isAccepted: isAccepted }).subscribe()
   }
 

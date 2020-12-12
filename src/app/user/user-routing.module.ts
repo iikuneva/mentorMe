@@ -7,6 +7,7 @@ import { CreateEditProfileComponent } from './create-edit-profile/create-edit-pr
 import { ProfileResolverService } from './profile-resolver.service';
 import { MentorshipComponent } from './mentorship/mentorship.component';
 import {AuthGuard} from './auth/auth.guard';
+import { MentorshipResolver } from './mentorship/mentorship-resolver.service';
 
 const routes: Routes = [
   { path: 'profile/create', pathMatch:'full', component: CreateEditProfileComponent, canActivate: [AuthGuard] },
@@ -28,6 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'mentorship',
+    resolve: [MentorshipResolver],
     component: MentorshipComponent, 
     canActivate: [AuthGuard]
   }
