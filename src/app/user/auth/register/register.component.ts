@@ -50,4 +50,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     );
 
   }
+
+  clearError(): void {
+    this.errorMessage = null;
+  }
 }

@@ -1,9 +1,9 @@
 <div class="container-fluid d-flex flex-row justify-content-center mt-lg-5" *ngIf="isLoading">
     <app-loader></app-loader>
 </div>
-<div *ngIf="!isLoading" class="container-fluid d-flex flex-column min-vh-100">
-    <div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0" class="flex-grow-1">
-        <h3>My mentorship list</h3>
+<div *ngIf="!isLoading" class="container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <div *ngIf="mentorshipProfiles && mentorshipProfiles?.length > 0" class="flex-grow-1 col-xs-12 col-lg-8 text-center">
+        <h3 class="m-5">My mentorship list</h3>
         <table class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -39,7 +39,7 @@
             </tbody>
         </table>
     </div>
-    <div class="flex-grow-1 mt-5" *ngIf="!loggedUserProfile || !mentorshipProfiles || mentorshipProfiles?.length === 0">
+    <div class="flex-grow-1 m-5" *ngIf="!loggedUserProfile || !mentorshipProfiles || mentorshipProfiles?.length === 0">
         <h4>There is no mentorship yet...</h4>
     </div>
 </div>

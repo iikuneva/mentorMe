@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   hasLoggedUserProfile: boolean = false;
   isLoading: boolean;
 
-  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.dataStorageService.isLoading.subscribe(data => {
@@ -37,16 +37,23 @@ export class ProfileComponent implements OnInit {
       this.dataStorageService.getUser().subscribe(user => this.loggedUser = user);
 
       this.loggedUserProfile = this.dataStorageService.getLoggedUserProfile().getValue();
-      if (this.loggedUserProfile) {
+
+      if(this.loggedUserProfile?.profileId){
+        this.hasLoggedUserProfile = true;
+      }else{
+        this.hasLoggedUserProfile = false;
+      }
+
+
+      if (this.loggedUserProfile?.role) {
         this.loggedUserRole = this.loggedUserProfile.role;
       }
-      this.hasLoggedUserProfile = !!this.loggedUserProfile;
 
       if (this.profile.userEmail === this.loggedUser.email) {
         this.isOwner = true;
       }
 
-      if (this.profile.mentorship) {
+      if (this.profile.mentorship && this.hasLoggedUserProfile) {
         this.isAlreadyInMentorship = !!Object.values(this.profile.mentorship).find((obj) => obj.profileId === this.dataStorageService.getLoggedUserProfile().getValue().profileId)
       }
     });

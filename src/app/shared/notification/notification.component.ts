@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit } from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-notification',
@@ -7,16 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
   
-  hideError: boolean = false;
-
+  @Output() hideError = new Subject<boolean>();
+  
   @Input() message: string;
   
   constructor() { }
 
   ngOnInit(): void {}
 
-  // onClose(): void {
-  //   this.hideError = true;
-  // }
+  onClose(): void {
+    this.hideError.next(true);
+  }
 
 }

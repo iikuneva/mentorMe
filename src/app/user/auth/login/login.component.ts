@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataStorageService } from '../../../shared/data-storage.service';
 import { AuthService } from '../auth-service.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -33,4 +33,7 @@ export class LoginComponent {
 
   }
 
+  clearError(): void {
+    this.errorMessage = null;
+  }
 }
