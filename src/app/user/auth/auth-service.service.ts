@@ -21,17 +21,6 @@ export class AuthService {
       returnSecureToken: true
     }
     return this.http.post<ILoggedUser>(environment.registerURL + environment.apiKey, bodyUser);
-    // .subscribe(
-    //   {
-    //     next: (newUser) => {
-    //       this.dataStorageService.setUser(newUser)
-    //       this.router.navigate(['/home']);
-    //     },
-    //     error: (error) => {
-    //       this.errorMessage = error.error.error.message;
-    //     }
-    //   }
-    // );
   }
 
   loginUser(user: IUser): Observable<any> {
@@ -45,18 +34,6 @@ export class AuthService {
         this.dataStorageService.setLoggedUserProfile(data.email)
       })
     )
-    // .subscribe(
-    //   {
-    //     next: (newUser) => {
-    //       this.dataStorageService.setUser(newUser)
-    //       this.router.navigate(['/home']);
-    //     },
-    //     error: (error) => {
-    //       this.errorMessage = error.error.error.message;
-    //       console.log("from authservice --> " + error.error.error.message);
-    //     }
-    //   }
-    // );
 
   }
 
