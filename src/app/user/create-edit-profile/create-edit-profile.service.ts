@@ -22,6 +22,7 @@ export class CreateEditProfileService {
       {
         next: (newProfile) => {
           this.profile = { ...profileBody, id: newProfile.name };
+          this.dataStorageService.loggedUserProfile.next({ profileId: newProfile.name, role: profile.main.role });
           this.router.navigate([`/profile/${newProfile.name}`]);
         },
         error: (error) => { console.log(error) }

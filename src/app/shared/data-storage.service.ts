@@ -60,6 +60,7 @@ export class DataStorageService {
           if (Object.keys(data).length !== 0) {
             const fetchedProfile: IProfile = data[Object.keys(data)[0]];
             this.loggedUserProfile.next({ profileId: Object.keys(data)[0], role: fetchedProfile.main.role });
+            
           }
         }
       )

@@ -20,7 +20,9 @@ export class AuthService {
       ...user,
       returnSecureToken: true
     }
-    return this.http.post<ILoggedUser>(environment.registerURL + environment.apiKey, bodyUser);
+    return this.http.post<ILoggedUser>(environment.registerURL + environment.apiKey, bodyUser).pipe(
+      tap(data => sessionStorage.setItem('user', JSON.stringify(data)))
+    );
   }
 
   loginUser(user: IUser): Observable<any> {
